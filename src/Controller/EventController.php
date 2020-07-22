@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Admin;
 use App\Entity\Event;
 use App\Entity\Image;
@@ -87,30 +88,42 @@ class EventController extends AbstractController
 
 
     /**
-     * @Route("/cart/addimg/{imageId}", name="addImgToCartPath")
+     * @Route("/cart/addimg", name="addImgToCartPath")
      */
 
-    function addImgToCartPath($imageId){
+    function addImgToCartPath(){
+        
+    if(isset($_POST["imageId"])){
 
-        /** 
-        *if(isset($_COOKIE['cart'])){
+        $imageId = $_POST['imageId'];
+
+            
+        if(isset($_COOKIE['cart'])){
+
+            $cookieValue = $_COOKIE['cart'];
+ 
+            $cookieValue .= ',' . $imageId;
+ 
+ 
+         setcookie("cart", $cookieValue );
+
+         
+         return new JsonResponse(['cookieContent' => $_COOKIE['cart']]);
+ 
+ 
+         } else {
+      
+             setcookie('cart', $imageId );
+
+             
+         return new JsonResponse(['cookieContent' => $_COOKIE['cart']]);
+         }
 
 
-           *$cookieValue = $_COOKIE['cart'];
+    }
+    
 
-           *$cookieValue += $imageId;
-
-
-        *setCookie("cart", ". $cookieValue .");
-
-
-        *} else {
-     
-            *setcookie('cart', $imageId );
-        *}
-
-      **/
-        return new JsonResponse(['cookieContent' => 'cookieContent']);
+      
 
 
            

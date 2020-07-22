@@ -61,7 +61,6 @@
    <script>
 
 
-
       function addImgToCart(event){
         
         var imageId = event.target.value;
@@ -70,13 +69,13 @@
 
         xrq.onload = function(){
 
-          alert('ok');
+          alert(JSON.parse(this.responseText).cookieContent);
         }
 
-        xrq.open('GET', '{{ path("addImgToCartPath", { "imageId" : 3 }) }}', true);
-
-        xrq.send();
-
+        xrq.open('POST', '{{ path("addImgToCartPath") }}', true);
+        xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      
+        xrq.send('imageId=' + imageId);
 
       }
 
