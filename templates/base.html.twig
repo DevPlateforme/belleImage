@@ -8,6 +8,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+
+    <style>
+
+    </style>
     <div class="fixed-top">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
@@ -25,7 +29,18 @@
 </br>
 </br>
 </br>
+
         {% block body %}{% endblock %}
+
+
+        
+<form method='post' action='createTicketPath'>
+<label>Envoyez un message à Claude</label>
+<input type = 'text' name = 'ticketMessage'>
+<input type='submit'>
+</form>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
