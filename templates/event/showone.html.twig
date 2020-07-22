@@ -41,8 +41,6 @@
    </br>
    </br>
    </br>
-   </br>
-   </br>
 
 
    <form method='post' enctype='multipart/form-data'>
@@ -62,12 +60,25 @@
 
    <script>
 
-      function addImgToCart(event){
 
-  alert(event.target.value);
+
+      function addImgToCart(event){
+        
+        var imageId = event.target.value;
+
+        xrq = new XMLHttpRequest();
+
+        xrq.onload = function(){
+
+          alert('ok');
+        }
+
+        xrq.open('GET', '{{ path("addImgToCartPath", { "imageId" : 3 }) }}', true);
+
+        xrq.send();
+
 
       }
-
 
    </script>
 {% endblock %}

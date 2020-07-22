@@ -86,5 +86,38 @@ class EventController extends AbstractController
 
 
 
+    /**
+     * @Route("/cart/addimg/{imageId}", name="addImgToCartPath")
+     */
+
+    function addImgToCartPath($imageId){
+
+        /** 
+        *if(isset($_COOKIE['cart'])){
+
+
+           *$cookieValue = $_COOKIE['cart'];
+
+           *$cookieValue += $imageId;
+
+
+        *setCookie("cart", ". $cookieValue .");
+
+
+        *} else {
+     
+            *setcookie('cart', $imageId );
+        *}
+
+      **/
+        return new JsonResponse(['cookieContent' => 'cookieContent']);
+
+
+           
+    }
+    
+
+
+
     
 }
