@@ -13,6 +13,36 @@
 
    </br>
    </br>
+   </br>
+
+
+    {% for image in images %}  
+
+    <img src = '{{ image.src }}'> </br>
+
+    <button value= {{ image.id}} onclick='addImgToCart(event)'>add image to cart </button>
+
+    </br>
+
+    {% endfor %}
+
+
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
+   </br>
 
 
    <form method='post' enctype='multipart/form-data'>
@@ -26,4 +56,18 @@
 
    </form>
 
+{% endblock %}
+
+{% block javascripts %}
+
+   <script>
+
+      function addImgToCart(event){
+
+  alert(event.target.value);
+
+      }
+
+
+   </script>
 {% endblock %}

@@ -70,22 +70,17 @@ class EventController extends AbstractController
 
                 
                 
-                $event->addImage($img = new Image());
-                $img->setSrc('https://frenchdistrict.com/wp-content/uploads/2014/05/marier-las-vegas-mariage-new-une2.jpg');
-
-                
-                $event->addImage($img = new Image());
-                $img->setSrc('https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/people/la-vie-des-people/news/le-discours-emouvant-de-stephanie-de-monaco-au-mariage-de-son-fils-louis-3800463/90689545-1-fre-FR/Le-discours-emouvant-de-Stephanie-de-Monaco-au-mariage-de-son-fils-Louis.jpg');
-
-                
-
                 
                 $manager->persist($event);
                 $manager->flush();   
         
        }   
+
+
+                       $images = $event->getImages();
+
     
-        return $this->render('event/showone.html.twig', ['event' => $event]);
+        return $this->render('event/showone.html.twig', ['event' => $event , 'images' => $images]);
 
     }
 
