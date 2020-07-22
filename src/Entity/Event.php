@@ -20,7 +20,7 @@ class Event
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Admin::class, inversedBy="events")
+     * @ORM\ManyToOne(targetEntity=Admin::class, inversedBy="events", cascade={"persist", "remove"})
      */
     private $admin;
 
