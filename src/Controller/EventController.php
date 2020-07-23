@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Admin;
 use App\Entity\Event;
@@ -132,18 +133,51 @@ class EventController extends AbstractController
 
     
     /**
-     * @Route("/cart/checkout", name="addImgToCartPath")
+     * @Route("/event/seeCart", name="seeCartPath")
      */
-
 
     function checkout(){
 
+        setcookie('cart', '80, 81');
+        $cart = $_COOKIE['cart'];
 
+        $cartSrcArray = [];
 
+        
+        if (isset($cart)){
+
+            $cart = explode(',' , $cart);
+            
+            foreach($cart as $imageId){
+
+                $repo = $this->getDoctrine()->getRepository(Image::class);
+
+                $src = $repo->find($imageId)->getSrc();
+
+                $cartSrcArray[] = $src ;
+
+            }
+
+        }
+        
+        return $this->render('cart/checkout.html.twig', ['cart' => $cartSrcArray]);
 
 
     }
 
+
+
+
+    /**
+     * @Route("/event/payment", name="checkoutPath")
+     */
+
+
+    function payment(){
+        
+        
+        return $this->render('event/payment.html.twig', ['']);
+    }
 
 
     
