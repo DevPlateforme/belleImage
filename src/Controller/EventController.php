@@ -130,6 +130,20 @@ class EventController extends AbstractController
     }
     
 
+    
+    /**
+     * @Route("/cart/checkout", name="addImgToCartPath")
+     */
+
+
+    function checkout(){
+
+
+
+
+
+    }
+
 
 
     

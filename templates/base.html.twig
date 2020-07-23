@@ -29,19 +29,29 @@
 </br>
 </br>
 </br>
-
         {% block body %}{% endblock %}
 
-
+ {%block messagebox%}
         
-<form method='post' action='createTicketPath'>
-<label>Envoyez un message à Claude</label>
-<input type = 'text' name = 'ticketMessage'>
-<input type='submit'>
+<form method='post' action='{{path("newTicketPath")}}'>
+
+
+<label>Name</label>
+  <input type = 'text' name = 'username'></br>
+<label>Envoyez un message à Claude</label></br>
+
+  <input type = 'text' name = 'ticketMessage'></br>
+
+  <label>Phone Number</label></br>
+  <input type = 'text' name = 'ticketPhoneNumber'> </br>
+    
+    <label>Email</label></br>
+    <input type = 'text' name = 'ticketMail'></br>
+
+<input type='submit' id='ticketSubmit'> 
 </form>
 
-
-
+{% endblock %}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
         {% block javascripts %}{% endblock %}

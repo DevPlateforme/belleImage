@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TicketController!{% endblock %}
+
+{% block body %}
+<style>
+
+
+.bgContainer{
+
+    width : 95vw;
+
+    height : 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.ticketContainer{
+      height: 500px;
+      width: 50%;
+
+      border: solid;
+
+      margin-left: 3vw;
+}
+
+</style>
+
+
+ {%block messagebox%}
+ {%endblock%}
+
+   <h1Voici tous vos tickets en attente</h1>
+    
+    <div class='bgContainer'>
+
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+ 
+ 
+   
+    
+    
+
+
+
+    {% for ticket in tickets %}
+
+           <div class = 'ticketContainer'>
+          Nom :   <h4>{{ ticket.username}}</h1><br>
+          Numéro de téléphone : <p>{{ ticket.foneNumber}}</p><br>
+          Status : <p>{{ ticket.status}}</p><br>
+          Message: <p>{{ ticket.content}}</h1></p> </br>
+          <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button> Passer le ticket en 'fait'</button></a>
+             
+          </div>
+    
+    </br>
+    {%endfor%}
+    
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+
+
+{% endblock %}
