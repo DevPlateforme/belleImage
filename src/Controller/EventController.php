@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Admin;
 use App\Entity\Event;
 use App\Entity\Image;
+use App\Entity\Stripe;
 use App\Repository\AdminRepository;
 use App\Repository\EventRepository;
 
@@ -212,9 +213,31 @@ class EventController extends AbstractController
     if(filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name) && !empty($token)){
 
  
-        
+        $stripe = new Stripe('sk_test_51H03AQHsoMXBsfUuXefwcN7pALjO3Bg7zHL204QfsI8YIs6N4WmTCjkPFMmYYw7DMwJVPhUzrpL7wnllbtMpVbuj00QMBYI2uJ');
+
+	$customer = $stripe->api('customers', [
+		 'source' => $token,
+         'description' => $name,
+         'email' => $email
+	]);
+
+
+
+   //Charge the client
+
+   
+   $stripe->api('charges', [
+
+   	'amount' => 1000,
+    'currency' => 'eur',
+     'customer' => $customer->id]);
+
+               };
+
+
+          return $this->render('event/new.html.twig');
     }
-    }
+
 
 
 
