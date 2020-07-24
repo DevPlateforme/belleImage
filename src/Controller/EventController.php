@@ -181,4 +181,44 @@ class EventController extends AbstractController
 
 
     
+    /**
+     * @Route("/event/stripe", name="stripePath")
+     */
+
+
+    function stripe(){
+        
+        
+        return $this->render('cart/stripe.html.twig');
+    }
+
+
+
+    /**
+     * @Route("/event/stripe/payment", name="stripePaymentPath")
+     */
+
+
+    function stripePayment(){
+
+
+        $token = $_POST['stripeToken'];
+        $email = $_POST['mail'];
+        $name = $_POST['name'];
+
+ 
+
+      
+    if(filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name) && !empty($token)){
+
+ 
+        
+    }
+    }
+
+
+
+
+
+    
 }
