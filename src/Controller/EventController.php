@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -93,32 +94,48 @@ class EventController extends AbstractController
      * @Route("/cart/addimg", name="addImgToCartPath")
      */
 
-    function addImgToCartPath(){
-        
+    function addImgToCartPath(Request $request){
+
+        $response = new Response(
+           
+        );
+
+
     if(isset($_POST["imageId"])){
 
         $imageId = $_POST['imageId'];
 
             
-        if(isset($_COOKIE['cart'])){
+        if($request->cookies->get('cart') != null){
 
-            $cookieValue = $_COOKIE['cart'];
+            $cookie = $request->cookies->get('cart');
  
-            $cookieValue .= ',' . $imageId;
- 
- 
-         setcookie("cart", $cookieValue );
+            $cookie .= ',' . $imageId;
+
+            $updatedCookieValue = $cookie;
+
+
+            $cookie = new Cookie('cart', $updatedCookieValue , strtotime('+1 day'));
+            $response->headers->setCookie($cookie);
+            $response->send();
+
+
+            $cookie = $request->cookies->get('cart'); 
 
          
-         return new JsonResponse(['cookieContent' => $_COOKIE['cart']]);
+         return new JsonResponse(['cookieContent'=>$cookie]);
  
  
          } else {
-      
-             setcookie('cart', $imageId );
+
+            $cookie = new Cookie('cart', $imageId, strtotime('+1 day'));
+            $response->headers->setCookie($cookie);
+            $response->send();
+
+            $cookie = $request->cookies->get('cart'); 
 
              
-         return new JsonResponse(['cookieContent' => $_COOKIE['cart']]);
+         return new JsonResponse(['cookieContent'=>$cookie]);
          }
 
 
@@ -139,13 +156,9 @@ class EventController extends AbstractController
 
     function checkout(){
 
-        setcookie('cart', '80, 81');
-        $cart = $_COOKIE['cart'];
-
         $cartSrcArray = [];
 
-        
-        if (isset($cart)){
+        if (isset($_COOKIE['cart'])){
 
             $cart = explode(',' , $cart);
             
@@ -168,39 +181,38 @@ class EventController extends AbstractController
 
 
 
-
-    /**
-     * @Route("/event/payment", name="checkoutPath")
-     */
-
-
-    function payment(){
-        
-        
-        return $this->render('event/payment.html.twig', ['']);
-    }
-
-
     
     /**
-     * @Route("/event/stripe", name="stripePath")
+     * @Route("/event/paymentPage", name="paymentPagePath")
      */
 
 
-    function stripe(){
+    function paymentPage(Request $request){
+
+        if($request->cookies->get('cart') != null){
+        
+        $cookie = $request->cookies->get('cart');
+
+        $cookie = explode(',' , $cookie);
+
+        $imageNumber = count($cookie);
         
         
-        return $this->render('cart/stripe.html.twig');
+        return $this->render('cart/stripe.html.twig', ['imagesNumber' => $imageNumber]);
+
+
+        }
+
     }
 
 
 
     /**
-     * @Route("/event/stripe/payment/{photoNumber}", name="stripePaymentPath")
+     * @Route("/event/stripe/payment/{imagesNumber}", name="stripePaymentPath")
      */
 
 
-    function stripePayment($photoNumber){
+    function payment($imagesNumber){
 
 
         $token = $_POST['stripeToken'];
@@ -210,45 +222,42 @@ class EventController extends AbstractController
  
 
       
-    if(filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name) && !empty($token)){
+       if(filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name) && !empty($token)){
 
  
         $stripe = new Stripe('sk_test_51H03AQHsoMXBsfUuXefwcN7pALjO3Bg7zHL204QfsI8YIs6N4WmTCjkPFMmYYw7DMwJVPhUzrpL7wnllbtMpVbuj00QMBYI2uJ');
 
-	$customer = $stripe->api('customers', [
-		 'source' => $token,
-         'description' => $name,
-         'email' => $email
-	]);
+	       $customer = $stripe->api('customers', [
+		     'source' => $token,
+             'description' => $name,
+             'email' => $email
+	        ]);
 
 
 
    //Charge the client
 
    
-   $stripe->api('charges', [
+          $stripe->api('charges', [
 
-   	'amount' => $photoNumber * 500,
-    'currency' => 'eur',
-     'customer' => $customer->id]);
+         	'amount' => $imagesNumber * 500,
+            'currency' => 'eur',
+            'customer' => $customer->id]);
 
-               };
+                   };
 
 
-        $error = $stripe->error;
+            $error = $stripe->error;
 
-        if($error != null){
+           if($error != null){
 
             echo $error;
-        }
+            }
 
 
-          return $this->render('event/new.html.twig');
-    }
+          return $this->render('event/collect.html.twig');
 
-
-
-
+             }
 
 
     
