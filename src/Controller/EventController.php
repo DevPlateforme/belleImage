@@ -196,11 +196,11 @@ class EventController extends AbstractController
 
 
     /**
-     * @Route("/event/stripe/payment", name="stripePaymentPath")
+     * @Route("/event/stripe/payment/{photoNumber}", name="stripePaymentPath")
      */
 
 
-    function stripePayment(){
+    function stripePayment($photoNumber){
 
 
         $token = $_POST['stripeToken'];
@@ -228,11 +228,19 @@ class EventController extends AbstractController
    
    $stripe->api('charges', [
 
-   	'amount' => 1000,
+   	'amount' => $photoNumber * 500,
     'currency' => 'eur',
      'customer' => $customer->id]);
 
                };
+
+
+        $error = $stripe->error;
+
+        if($error != null){
+
+            echo $error;
+        }
 
 
           return $this->render('event/new.html.twig');

@@ -43,7 +43,7 @@
  
 <script src="https://js.stripe.com/v3/"></script>
 
-<form action='{{ path("stripePaymentPath")}}' method="post" id="payment-form">
+<form action='{{ path("stripePaymentPath", {'photoNumber': 7})}}' method="post" id="payment-form">
   <div class="form-row">
 
 

@@ -23,6 +23,9 @@ class Stripe
     private $apiKey;
 
 
+    public $error = null;
+
+
 
 
     public function __construct(string $api_key){
@@ -53,7 +56,7 @@ class Stripe
         
     if(property_exists($response, 'error')){
 
-        throw new Exception($response->error->message);
+        $this->error = $response->error->message;
     }
 
 
