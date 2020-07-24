@@ -89,6 +89,21 @@ class EventController extends AbstractController
     }
 
 
+    /**
+     * @Route("/event/showAll", name="showAllEventsPath")
+     */
+    function showAll(EntityManagerInterface $manager){
+
+        $events =  $admin = $this->getDoctrine()->getRepository(Event::class)->findAll();
+
+        return $this->render('event/showall.html.twig', ['events'=> $events]);
+
+    }
+
+
+
+
+
 
     /**
      * @Route("/cart/addimg", name="addImgToCartPath")
