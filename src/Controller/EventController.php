@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Form\ImageType;
 use App\Entity\Admin;
 use App\Entity\Event;
 use App\Entity\Image;
 use App\Entity\Stripe;
 use App\Repository\AdminRepository;
 use App\Repository\EventRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class EventController extends AbstractController
@@ -49,58 +51,64 @@ class EventController extends AbstractController
     /**
      * @Route("/event/showone/{eventId}", name="showOneEventPath")
      */
-    function showOne($eventId, EntityManagerInterface $manager){
+    function showOne($eventId, EntityManagerInterface $manager, Request $request,  SluggerInterface $slugger){
     
         $event= $this->getDoctrine()->getRepository(Event::class)->find($eventId);
 
         $eventName = $event->getName();
 
 
-        if (isset($_POST['addImages']) ){
-                /** 
-                   
-           *$eventPath = 'events/' . $eventName ;
-           *$imagePath = $eventPath . '/' . $_FILES['imgFile']['name'];
-           *move_uploaded_file($_FILES['imgFile']['tmp_name'], $imagePath);
-                
-               **/
-
-                $event->addImage($img = new Image());
-                $img->setSrc('https://cache.cosmopolitan.fr/data/photo/w1000_ci/5l/tendances-mariage-2020.jpg');
-                
-                
-                $event->addImage($img = new Image());
-                $img->setSrc('https://i-df.unimedias.fr/2019/10/23/mariage_.jpg?auto=format%2Ccompress&crop=faces&cs=tinysrgb&fit=crop&h=700&w=1200');
-
-                
-                
-                
-                $manager->persist($event);
-                $manager->flush();   
         
-       }   
+        $event->addImage($image= new Image());
+        
+
+        $form = $this->createForm(ImageType::class, $image);
+
+        $form->handleRequest($request);
 
 
-                       $images = $event->getImages();
 
-    
-        return $this->render('event/showone.html.twig', ['event' => $event , 'images' => $images]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $brochureFile */
+            $brochureFile = $form->get('brochure')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($brochureFile) {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('brochures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $image->setSrc($newFilename);
+            }
+
+            // ... persist the $product variable or any other work
+
+            return $this->render('event/new.html.twig');
+
+
+            
+        }
+
+        
+        $images = $event->getImages();
+
+        return $this->render('event/showone.html.twig', ['event' => $event , 'images' => $images, 'form' => $form->createView()]);
 
     }
-
-
-    /**
-     * @Route("/event/showAll", name="showAllEventsPath")
-     */
-    function showAll(EntityManagerInterface $manager){
-
-        $events =  $admin = $this->getDoctrine()->getRepository(Event::class)->findAll();
-
-        return $this->render('event/showall.html.twig', ['events'=> $events]);
-
-    }
-
-
 
 
 
@@ -151,14 +159,10 @@ class EventController extends AbstractController
 
              
          return new JsonResponse(['cookieContent'=>$cookie]);
-         }
 
+           }
 
-    }
-    
-
-      
-
+      }
 
            
     }
@@ -273,7 +277,6 @@ class EventController extends AbstractController
           return $this->render('event/collect.html.twig');
 
              }
-
 
     
 }
