@@ -17,9 +17,9 @@ class ImageType extends AbstractType
     {
         $builder
   
-            ->add('brochure', FileType::class,  [
+            ->add('image', FileType::class,  [
 
-                'label' => 'Brochure (PDF file)',
+                'label' => 'image (JPG file)',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -34,10 +34,10 @@ class ImageType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
+                            'image/jpeg',
+                            'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Please upload a valid jPG document',
                     ])
                 ],
             ])
