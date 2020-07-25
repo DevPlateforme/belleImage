@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -24,17 +26,36 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/createadmin", name="createadminPath")
+     *
+    *public function createAdmin(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+
+    *    $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+
+    *    $hash = $encoder->encodePassword($admin, 'newton');
+        
+    *    $admin->setMail('claude@hotmail.fr');
+    *    $admin->setPassword($hash);
+
+    *    $manager->persist($admin);
+    *    $manager->flush();
+
+    *    return $this->render('admin/index.html.twig');
+
+    *}
+    
+    **/
+
+    
+    /**
+     * @Route("/login", name="security_login")
      */
 
+    public function login(){
+       
 
-    public function createAdmin(EntityManagerInterface $manager){
-
-        $admin = new Admin();
-
-        $manager->persist($admin);
-        $manager->flush();
-
-        return $this->render('admin/index.html.twig');
+        return $this->render('admin/login.html.twig');
 
     }
+
+    
 }

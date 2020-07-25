@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+
+
+
+<a href= ' {{ path("newEventPath")}}'><button>Créer un évènement</button></a>
+
+<button>Voir mes évènements</button>
+
+
+
+<form method='post' action='{{ path('security_login')}}'>
+
+<label>Mail</label></br>
+
+<input type='text' class='form-control' required name='_username'></br>
+
+<label>Mot de passe</label></br>
+
+<input type='text' class='form-control' placeholder='Mot de passe' required name='_password'></br>
+
+<button type='submit'>submit</button>
+</form>
+
+
+
+</div>
+{% endblock %}

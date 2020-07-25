@@ -6,11 +6,12 @@ use App\Repository\AdminRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=AdminRepository::class)
  */
-class Admin
+class Admin implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -28,6 +29,16 @@ class Admin
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="admin", cascade={"persist", "remove"})
      */
     private $chats;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mail;
 
     public function __construct()
     {
@@ -101,4 +112,42 @@ class Admin
 
         return $this;
     }
+
+    
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
+
+    public function getUsername(){}
+
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+
+
 }
