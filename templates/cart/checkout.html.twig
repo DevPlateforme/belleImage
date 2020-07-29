@@ -52,9 +52,12 @@
       
       <a href='{{path("paymentPagePath") }}'><button>Payer</button></a>
 
+     
+     {% if eventSeen != null %} 
 
+     <a href = ' {{ path("showOneEventPath", { 'eventId' : eventSeen }) }}'><button>revenir à l'évènement</button></a>
 
-     <button>revenir à l'évènement</button>
+     {% endif %}
 
 
 {% endblock %}

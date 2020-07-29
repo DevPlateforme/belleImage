@@ -42,18 +42,24 @@ class EventController extends AbstractController
 
                 $id = $event->getId();
 
+
+                $response = new Response();
+
+                $eventCookie = new Cookie('eventCookie', $id , strtotime('+1 day'));
+
+                $response->headers->setCookie($eventCookie);
+                $response->send();
+
+    
             return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $id]);
 
             } 
 
             return $this->redirectToRoute('adminIndexPath');
 
-
         }
     
     }
-
-
 
 
 
@@ -246,10 +252,14 @@ class EventController extends AbstractController
      */
 
     function checkout(Request $request){
-
+           
+        $eventSeen = null;
        
+           if($request->cookies->get('eventCookie')){
 
+            $eventSeen = $request->cookies->get('eventCookie');
 
+           }
         if ($request->cookies->get('cart') != null){
 
             $cart = $request->cookies->get('cart');
@@ -269,12 +279,12 @@ class EventController extends AbstractController
 
             }
 
-            return $this->render('cart/checkout.html.twig', ['cart' => $cartArray, 'cartValue' => 5*count($cart)]);
+            return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => $cartArray, 'cartValue' => 5*count($cart)]);
 
 
         }
         
-        return $this->render('cart/checkout.html.twig', ['cart' => null, 'cartValue' => null]);
+        return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => null, 'cartValue' => null]);
 
         
 
