@@ -15,14 +15,43 @@
     <div class="fixed-top">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
-      <h5 class="text-white h4">Mes messages</h5>
-      <span class="text-muted">Accède à ta messagerie privée</span>
+
+      <a href= '{{ path("adminIndexPath")}}'><h5 class="text-white h4">Home</h5></a>
+
+       {%if app.user%}
+
+      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Mes tickets en cours</h5></a>
+
+            <a href= '{{ path("showAllDoneTicketsPath")}}'><h5 class="text-white h4">Mes tickets réalisés</h5></a>
+          
+          {%else%}
+
+            <a href= '{{ path("security_login")}} '><button>Connexion</button></a>
+
+
+          {%endif%}
+
+
     </div>
   </div>
   <nav class="navbar navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+
+      {%if app.user%}
+
+           
+           <a href= '{{ path("logoutPath")}} '><button>Déconnexion</button></a>
+
+
+      {%else%}
+                 <a href= {{ path("seeCartPath") }}><button>See your cart</button></a>
+
+
+            {%endif%}
+
+
+
   </nav>
 </div>
 
@@ -31,9 +60,7 @@
 </br>
         {% block body %}{% endblock %}
 
- {%block messagebox%}
         
-<form method='post' action='{{path("newTicketPath")}}'>
 
 </br>
 </br>
@@ -47,35 +74,16 @@
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
 
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+      {%if app.user%}
+           
+           <a href= '{{ path("showAllEventsPath")}} '><button>Voir tes évènements</button></a>
+
+           <a href= ' {{ path("newEventPath")}}'><button>Créer un évènement</button></a>
+
+      {%else%}
+
+      <form method='post' action='{{path("newTicketPath")}}'>
 
 
 <label>Name</label>
@@ -93,7 +101,9 @@
 <input type='submit' id='ticketSubmit'> 
 </form>
 
-{% endblock %}
+
+ {%endif%}
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
         {% block javascripts %}{% endblock %}

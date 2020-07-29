@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trouvez votre évènement{% endblock %}
+
+{% block body %}
+
+<style>
+
+</style>
+
+{% if app.user %}
+
+Bienvenue dans l'espace de gestion de BelleImage
+{%else%}
+
+<h1>Trouvez votre évènement</h1>
+
+
+<form method='post' action='{{ path("searchEventPath")}}'>
+
+<input type='text' name='eventCode' placeholder='Saisissez un code'>
+
+<input type='submit' name='voir l'évènement' value='voir'>
+
+
+</form>
+
+
+{%endif%}
+
+
+
+
+{% endblock %}

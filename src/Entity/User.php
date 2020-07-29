@@ -22,7 +22,7 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private $username = 'user';
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -114,5 +114,11 @@ class User
         }
 
         return $this;
+    }
+
+
+    function __tostring(){
+
+        return 'value';
     }
 }

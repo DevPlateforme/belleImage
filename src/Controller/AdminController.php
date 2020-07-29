@@ -15,13 +15,13 @@ use App\Entity\Admin;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="adminIndexPath")
+     * @Route("/", name="adminIndexPath")
      */
     public function index()
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
+
+        return $this->render('admin/home.html.twig');
+
     }
 
     /**
@@ -54,6 +54,19 @@ class AdminController extends AbstractController
        
 
         return $this->render('admin/login.html.twig');
+
+    }
+
+    
+    
+    /**
+     * @Route("/logout", name="logoutPath")
+     */
+                
+
+    public function logout(){
+
+
 
     }
 

@@ -148,6 +148,11 @@ class Admin implements UserInterface
         return $this;
     }
 
+    function __toString(){
+
+        return $this->name;
+    }
+
 
 
 }

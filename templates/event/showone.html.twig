@@ -16,6 +16,11 @@
 
    <h1>{{event.name}}</h1>
 
+       <img src = "../img/wdg.jpg"> </br>
+
+
+
+
 
    </br>
    </br>
@@ -24,8 +29,7 @@
 
     {% for image in images %}  
 
-    <img src = '{{ image.src }}'> </br>
-
+      <h1>{{ image.src}} </h1>
     <button value= {{ image.id}} onclick='addImgToCart(event)'>add image to cart </button>
 
     </br>
@@ -77,7 +81,6 @@
         xrq = new XMLHttpRequest();
 
         xrq.onload = function(){
-
           alert(JSON.parse(this.responseText).cookieContent);
         }
 

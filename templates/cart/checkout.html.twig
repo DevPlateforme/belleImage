@@ -13,22 +13,30 @@
    <h1>Votre Panier</h1>
 
 
-          
-
-   <label>Votre panier</label>
-
      {% if cart != null%}
+
           <h1>Voici votre panier</h1>
+
+          <a href = '{{ path("clearCartPath") }}'><button>Vider le panier</button></a>
+
+             <h2> Le prix à régler pour votre panier est de {{cartValue}} euros </h2>
+
 
              {%for image in cart %}
 
 
-               <img src= {{image}}>
+               <h5>{{image.src}}></h1> </h5>
 
-        
 
+              <script>
+
+              console.log({{image.id}});
+
+              </script>
 
               {%endfor%}
+
+              <br><br>
 
 
 
@@ -38,12 +46,15 @@
 
       {% endif %}
 
+
+
+
       
       <a href='{{path("paymentPagePath") }}'><button>Payer</button></a>
 
 
 
-      <button>revenir à l'évènement</button>
+     <button>revenir à l'évènement</button>
 
 
 {% endblock %}

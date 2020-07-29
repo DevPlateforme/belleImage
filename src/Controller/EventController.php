@@ -19,21 +19,60 @@ use App\Repository\EventRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
+
 class EventController extends AbstractController
 {
+
+
+    
+
+    /**
+     * @Route("/event/search", name="searchEventPath")
+     */
+
+    public function find(EntityManagerInterface $manager)
+    {
+
+        if(isset($_POST['eventCode'])){
+
+
+            if($this->getDoctrine()->getRepository(Event::class)->findOneBy(['code' => $_POST['eventCode']])){
+
+                $event = $this->getDoctrine()->getRepository(Event::class)->findOneBy(['code' => $_POST['eventCode']]);
+
+                $id = $event->getId();
+
+            return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $id]);
+
+            } 
+
+            return $this->redirectToRoute('adminIndexPath');
+
+
+        }
+    
+    }
+
+
+
+
+
     /**
      * @Route("/event/new", name="newEventPath")
      */
 
     public function new(EntityManagerInterface $manager)
     {
+
+        $event = new Event();
+
            if(isset($_POST["createEvent"])){
 
                 $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
 
                 $events = $admin->getEvents();
                    
-                $events->add($event = new Event());
+                $events->add($event);
                 
                 $event->setName($_POST['eventName']);
                 
@@ -43,10 +82,19 @@ class EventController extends AbstractController
 
                 $manager->flush();
 
+
+                return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $event->getId()]);
+
            }
 
         return $this->render('event/new.html.twig');
     }
+
+
+
+
+
+
 
     /**
      * @Route("/event/showone/{eventId}", name="showOneEventPath")
@@ -57,9 +105,8 @@ class EventController extends AbstractController
 
         $eventName = $event->getName();
 
-
         
-        $event->addImage($image= new Image());
+        $event->addImage($image = new Image());
         
 
         $form = $this->createForm(ImageType::class, $image);
@@ -81,24 +128,34 @@ class EventController extends AbstractController
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
                 // Move the file to the directory where brochures are stored
+
                 try {
                     $imageFile->move(
-                        $this->getParameter('events_directory'). $event->getName(),
+                       $this->getParameter('events_directory'). $event->getName(),
                         $newFilename
                     );
+
+                    $imagePath = $this->getParameter('events_directory'). $event->getName() . '/' . $newFilename;
+
+                    $image->setSrc($imagePath);
+
+                    $image->setName($originalFilename);
+    
+    
+                    $manager->persist($image);
+    
+                    $manager->flush();
+
+
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $image->setSrc($newFilename);
+              
             }
 
             // ... persist the $product variable or any other work
 
-            return $this->render('event/new.html.twig');
-
+                 return $this->redirectToRoute('showOneEventPath', ['eventId' => $eventId ]);
 
             
         }
@@ -112,6 +169,21 @@ class EventController extends AbstractController
 
 
 
+
+    
+    /**
+     * @Route("/events/showall", name="showAllEventsPath")
+     */
+
+    function showall(Request $request){
+              
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+
+        return $this->render('event/showall.html.twig', ['events' => $events]);
+
+    }
+
+     
 
     /**
      * @Route("/cart/addimg", name="addImgToCartPath")
@@ -173,27 +245,38 @@ class EventController extends AbstractController
      * @Route("/event/seeCart", name="seeCartPath")
      */
 
-    function checkout(){
+    function checkout(Request $request){
 
-        $cartSrcArray = [];
+       
 
-        if (isset($_COOKIE['cart'])){
+
+        if ($request->cookies->get('cart') != null){
+
+            $cart = $request->cookies->get('cart');
 
             $cart = explode(',' , $cart);
+
+            $cartArray = [];
             
             foreach($cart as $imageId){
 
                 $repo = $this->getDoctrine()->getRepository(Image::class);
 
-                $src = $repo->find($imageId)->getSrc();
+                $img = $repo->find($imageId);
 
-                $cartSrcArray[] = $src ;
+                
+                $cartArray[] = $img;
 
             }
 
+            return $this->render('cart/checkout.html.twig', ['cart' => $cartArray, 'cartValue' => 5*count($cart)]);
+
+
         }
         
-        return $this->render('cart/checkout.html.twig', ['cart' => $cartSrcArray]);
+        return $this->render('cart/checkout.html.twig', ['cart' => null, 'cartValue' => null]);
+
+        
 
 
     }
@@ -277,6 +360,39 @@ class EventController extends AbstractController
           return $this->render('event/collect.html.twig');
 
              }
+
+
+
+
+
+             
+
+    /**
+     * @Route("/event/cart/deleteFromCart", name="clearCartPath")
+     */
+
+
+    function clearCart(Request $request){
+
+        $cart = $request->cookies->get('cart');
+
+        $cart = explode(',' , $cart);
+
+        $updatedCookieValue = implode(",", $cart);
+
+
+    
+        $response = new Response();
+        $response->headers->clearCookie('cart');
+        $response->send();
+
+
+        return $this->redirectToRoute('seeCartPath');
+         
+            
+    }
+
+
 
     
 }
