@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -185,6 +189,57 @@ class EventController extends AbstractController
 
 
 
+    
+             
+
+    /**
+     * @Route("/event/image/delete", name="deleteImagePath")
+     */
+
+    
+
+    function deleteImage(Request $request, EntityManagerInterface $manager){
+
+        if(isset($_POST['eventId'])){
+
+            $eventId = $_POST['eventId'];
+
+            $imageId = $_POST['imageId'];
+
+
+            $filesystem = new Filesystem();
+
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($eventId);
+
+        $images = $event->getImages();
+
+        $img = $this->getDoctrine()->getRepository(Image::class)->find($imageId);
+
+
+        foreach($images as $image){
+
+            if($image->getId() == $imageId){
+
+                $event->removeImage($img);
+
+                $manager->persist($event);
+                $manager->flush();
+            }         
+
+        }
+
+        $path = $img->getSrc();
+
+        $filesystem->remove($path);
+
+
+        return $this->redirectToRoute('adminIndexPath');
+
+
+        }
+
+        
+    }
 
     
     /**
@@ -383,8 +438,8 @@ class EventController extends AbstractController
              }
 
 
-
-
+    
+     
 
              
 

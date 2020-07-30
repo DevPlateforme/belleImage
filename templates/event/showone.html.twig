@@ -43,23 +43,17 @@
    </br>
    </br>
    </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
+
+   {% if app.user %}
 
 
    {{ form_start(form) }}
     {{ form_row(form.image) }}
     <input type='submit' value='ajouter une photo'>
    {{ form_end(form) }}
+
+
+   {%endif%}
 
        </main>
 
@@ -69,12 +63,17 @@
 
    <script>
 
-var mybutton;
-
 
 
 
 {% for image in images %}  
+
+
+         var src = {{ image.id }}
+
+         console.log(src);
+
+
 
   var mybutton = document.createElement("BUTTON");
 
@@ -82,12 +81,16 @@ var mybutton;
 
   var mydiv = document.createElement("div");
 
-  mydiv.prepend(mybutton); 
+  mydiv.append(mybutton);
 
-    var src = {{ image.id }}
+     mydiv.append(src);
 
 
-    mydiv.append(src);
+
+          
+
+
+    
 
 
   mymain.prepend(mydiv);
@@ -96,12 +99,67 @@ var mybutton;
 
 
 
-
-
-
    {% if app.user %}
-               mybutton.setAttribute('value' , '{{ image.id}}')
-               mybutton.innerHTML = 'supprimer';
+
+   
+  
+     var form = document.createElement("form");
+
+     
+       form.setAttribute('action' , '{{ path("deleteImagePath")}}')
+
+              form.setAttribute('action' , '{{ path("deleteImagePath")}}')
+
+              form.setAttribute('method' , 'post')
+
+
+             
+         mybutton.style.opacity = '0';
+
+
+          var imageId = document.createElement("input");
+
+          imageId.setAttribute('value', x)
+
+          imageId.setAttribute('name', 'imageId')
+
+           imageId.setAttribute('type', 'hidden')
+
+
+
+          
+          var eventId = document.createElement("input");
+
+          eventId.setAttribute('value', {{event.id}})
+
+          eventId.setAttribute('name', 'eventId')
+
+          eventId.setAttribute('type', 'hidden')
+
+
+
+
+          
+           var submit = document.createElement("input");
+
+           submit.setAttribute('type', 'submit');
+
+           submit.setAttribute('value', 'supprimer');
+
+           form.append(submit);
+           form.append(imageId);
+            form.append(eventId);
+
+
+
+
+         mydiv.append(form);
+
+
+         var x = {{image.id}}
+
+
+
 
     {%else%}
 
@@ -146,8 +204,6 @@ var mybutton;
 
 
 
-
-
       function addImgToCart(event){
         
         var imageId = event.target.value;
@@ -157,10 +213,6 @@ var mybutton;
         event.target.setAttribute('onclick', '');
 
         xrq = new XMLHttpRequest();
-
-        xrq.onload = function(){
-          alert(JSON.parse(this.responseText).cookieContent);
-        }
 
         xrq.open('POST', '{{ path("addImgToCartPath") }}', true);
         xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
