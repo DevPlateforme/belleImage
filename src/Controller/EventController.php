@@ -149,7 +149,7 @@ class EventController extends AbstractController
 
                     $image->setSrc($path);
 
-
+                    $image->setAssetSrc('assets/uploads' . '/' . $eventName . '/' . $_FILES['myFile']['name']);
     
                     $manager->persist($image);
     

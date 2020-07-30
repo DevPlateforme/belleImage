@@ -38,6 +38,11 @@ class Image
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $assetSrc;
+
     
     public function getId(): ?int
     {
@@ -95,6 +100,18 @@ class Image
     public function setImage($image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAssetSrc(): ?string
+    {
+        return $this->assetSrc;
+    }
+
+    public function setAssetSrc(?string $assetSrc): self
+    {
+        $this->assetSrc = $assetSrc;
 
         return $this;
     }
