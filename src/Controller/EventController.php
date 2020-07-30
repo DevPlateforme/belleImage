@@ -133,11 +133,22 @@ class EventController extends AbstractController
             $event->addImage($image);
 
 
-                    $image->setSrc('src');
 
                     $image->setName('name');
 
-                    $image->setImage(file_get_contents($_FILES['myFile']['tmp_name']));
+
+                    $path = $this->getParameter('eventsDirectory'). $eventName . '/' . $_FILES['myFile']['name'];
+
+
+                    if (!file_exists($this->getParameter('eventsDirectory'). $eventName)) {
+                        mkdir($this->getParameter('eventsDirectory'). $eventName, 0777, true);
+                    }
+
+                    move_uploaded_file($_FILES['myFile']['tmp_name'], $path);
+
+
+                    $image->setSrc($path);
+
 
     
                     $manager->persist($image);
@@ -153,19 +164,10 @@ class EventController extends AbstractController
 
         $images = $event->getImages();
 
-        $imagesArray = [];
-
-
-        foreach($images as $key => $image){
-
-            $imagesArray[$key] = base64_encode(stream_get_contents($image->getImage()));
-        }
-
-
-
+        
 
     
-        return $this->render('event/showone.html.twig', ['imagesArray' => $imagesArray, 'cart' => $cart , 'event' => $event , 'images' => $images]);
+        return $this->render('event/showone.html.twig', ['cart' => $cart , 'event' => $event , 'images' => $images]);
 
     }
 
