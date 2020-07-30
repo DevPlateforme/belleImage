@@ -19,7 +19,6 @@ use App\Entity\Image;
 use App\Entity\Stripe;
 use App\Repository\AdminRepository;
 use App\Repository\EventRepository;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 
@@ -100,15 +99,29 @@ class EventController extends AbstractController
     }
 
 
+    
 
+    /**
+     * @Route("/event/delete/{eventId}", name="deleteEventPath")
+     */
+    function deleteEvent($eventId, EntityManagerInterface $manager){
 
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($eventId);
+        
+        $manager->remove($event);
+
+        $manager->flush();
+    
+        return $this->redirectToRoute('showAllEventsPath');
+
+    }
 
 
 
     /**
      * @Route("/event/showone/{eventId}", name="showOneEventPath")
      */
-    function showOne($eventId, EntityManagerInterface $manager, Request $request,  SluggerInterface $slugger){
+    function showOne($eventId, EntityManagerInterface $manager, Request $request){
         
         $cart = null;
 

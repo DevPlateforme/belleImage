@@ -20,6 +20,9 @@
 
    <a href = '{{ path("showOneEventPath", { "eventId": event.id})  }}'><button>Voir l'évènement</button></a> </br>
 
+      <a href = '{{ path("deleteEventPath", { "eventId": event.id})  }}'><button>Supprimer l'évènement</button></a> </br>
+
+
 
     {%endfor%} 
 
