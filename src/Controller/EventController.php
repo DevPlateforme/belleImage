@@ -139,51 +139,24 @@ class EventController extends AbstractController
 
             $event->addImage($image);
 
-            /** @var UploadedFile $brochureFile */
-            $imageFile = $form->get('image')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                    $image->setSrc('src');
 
-                // Move the file to the directory where brochures are stored
+                    $image->setName('name');
 
-                try {
-                    $imageFile->move(
-                       $this->getParameter('events_directory'). $event->getName(),
-                        $newFilename
-                    );
+                    $image->setImage(file_get_contents($_FILES['myFile']['tmp_name']));
 
-                    $imagePath = $this->getParameter('events_directory'). $event->getName() . '/' . $newFilename;
-
-                    $image->setSrc($imagePath);
-
-                    $image->setName($originalFilename);
-    
     
                     $manager->persist($image);
     
                     $manager->flush();
 
 
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                    return $this->redirectToRoute('showOneEventPath', ['eventId' => $eventId ]);
+
               
             }
 
-            // ... persist the $product variable or any other work
-
-                 return $this->redirectToRoute('showOneEventPath', ['eventId' => $eventId ]);
-
-            
-        }
-
-        
         $images = $event->getImages();
 
         return $this->render('event/showone.html.twig', ['cart' => $cart , 'event' => $event , 'images' => $images, 'form' => $form->createView()]);
@@ -430,7 +403,8 @@ class EventController extends AbstractController
 
            if($error != null){
 
-            echo $error;
+            return $this->render('event/paymentError.html.twig', ['error' => $error]);
+
             }
 
 

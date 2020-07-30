@@ -34,6 +34,7 @@
  {{ image.src }}
 
 
+
     
 
   {% endfor %}
@@ -48,9 +49,21 @@
 
 
    {{ form_start(form) }}
-    {{ form_row(form.image) }}
+
+   <input type = "file" name="myFile"/>
+
     <input type='submit' value='ajouter une photo'>
+    
    {{ form_end(form) }}
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 
 
    {%endif%}
@@ -66,7 +79,10 @@
 
 
 
+
+
 {% for image in images %}  
+
 
 
          var src = {{ image.id }}
@@ -85,11 +101,6 @@
 
      mydiv.append(src);
 
-
-
-          
-
-
     
 
 
@@ -100,6 +111,9 @@
 
 
    {% if app.user %}
+
+
+
 
    
   
@@ -124,6 +138,7 @@
           imageId.setAttribute('name', 'imageId')
 
            imageId.setAttribute('type', 'hidden')
+
 
 
 

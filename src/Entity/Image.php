@@ -33,6 +33,12 @@ class Image
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $image;
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -80,4 +86,18 @@ class Image
 
         return $this->name;
     }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    
 }
