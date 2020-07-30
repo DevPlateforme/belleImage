@@ -106,7 +106,17 @@ class EventController extends AbstractController
      * @Route("/event/showone/{eventId}", name="showOneEventPath")
      */
     function showOne($eventId, EntityManagerInterface $manager, Request $request,  SluggerInterface $slugger){
-    
+        
+        $cart = null;
+
+        if($request->cookies->get('cart')){
+
+            $cart = $request->cookies->get('cart');
+
+            $cart = explode(',' , $cart);
+        }
+
+
         $event= $this->getDoctrine()->getRepository(Event::class)->find($eventId);
 
         $eventName = $event->getName();
@@ -169,7 +179,7 @@ class EventController extends AbstractController
         
         $images = $event->getImages();
 
-        return $this->render('event/showone.html.twig', ['event' => $event , 'images' => $images, 'form' => $form->createView()]);
+        return $this->render('event/showone.html.twig', ['cart' => $cart , 'event' => $event , 'images' => $images, 'form' => $form->createView()]);
 
     }
 
@@ -224,7 +234,7 @@ class EventController extends AbstractController
             $cookie = $request->cookies->get('cart'); 
 
          
-         return new JsonResponse(['cookieContent'=>$cookie]);
+         return new JsonResponse(['cookieContent'=>'article ajouté!']);
  
  
          } else {
@@ -233,10 +243,9 @@ class EventController extends AbstractController
             $response->headers->setCookie($cookie);
             $response->send();
 
-            $cookie = $request->cookies->get('cart'); 
 
              
-         return new JsonResponse(['cookieContent'=>$cookie]);
+         return new JsonResponse(['cookieContent'=>'premier article ajouté!']);
 
            }
 
@@ -365,6 +374,8 @@ class EventController extends AbstractController
 
             echo $error;
             }
+
+
 
 
           return $this->render('event/collect.html.twig');

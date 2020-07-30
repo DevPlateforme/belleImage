@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+{% block title %}Hello!{% endblock %}
 
 {% block body %}
 <style>
@@ -16,7 +16,8 @@
 
    <h1>{{event.name}}</h1>
 
-       <img src = "../img/wdg.jpg"> </br>
+
+    <main id='mymain'>
 
 
 
@@ -27,23 +28,16 @@
    </br>
 
 
-    {% for image in images %}  
+ {% for image in images %}  
 
-      <h1>{{ image.src}} </h1>
-    <button value= {{ image.id}} onclick='addImgToCart(event)'>add image to cart </button>
 
-    </br>
-
-    
-  
-    <button value= {{ image.id}} onclick='addImgToCart(event)'>Supprimer</button>
-
-    </br>
+ {{ image.src }}
 
 
     
 
-    {% endfor %}
+  {% endfor %}
+
 
 
    </br>
@@ -67,16 +61,100 @@
     <input type='submit' value='ajouter une photo'>
    {{ form_end(form) }}
 
+       </main>
+
 {% endblock %}
 
 {% block javascripts %}
 
    <script>
 
+var mybutton;
+
+
+
+
+{% for image in images %}  
+
+  var mybutton = document.createElement("BUTTON");
+
+  var mymain = document.getElementById('mymain');
+
+  var mydiv = document.createElement("div");
+
+  mydiv.prepend(mybutton); 
+
+    var src = {{ image.id }}
+
+
+    mydiv.append(src);
+
+
+  mymain.prepend(mydiv);
+
+
+
+
+
+
+
+
+   {% if app.user %}
+               mybutton.setAttribute('value' , '{{ image.id}}')
+               mybutton.innerHTML = 'supprimer';
+
+    {%else%}
+
+    
+          mybutton.setAttribute('value' , '{{ image.id}}')
+          mybutton.setAttribute('onclick' , 'addImgToCart(event)')
+          mybutton.innerHTML = 'Ajouter au panier';    
+
+
+    
+      {% if cart != null%}
+            {% for id in cart %}
+
+                {%if id == image.id%}              
+
+                    mybutton.setAttribute('value' , '')
+                    mybutton.setAttribute('onclick' , '')
+                   mybutton.innerHTML = 'Ajouté';    
+                {% endif %}            
+            {%endfor%}               
+     
+      {%endif%}
+
+
+
+               
+
+   {%endif%}
+
+
+
+  {% endfor %}
+
+
+
+   
+
+
+
+
+
+
+
+
+
 
       function addImgToCart(event){
         
         var imageId = event.target.value;
+
+        event.target.innerHTML = 'ajouté';
+
+        event.target.setAttribute('onclick', '');
 
         xrq = new XMLHttpRequest();
 
