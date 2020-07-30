@@ -126,9 +126,9 @@ class EventController extends AbstractController
         $eventName = $event->getName();
 
         
-        $event->addImage($image = new Image());
+        $image = new Image();
         
-
+        
         $form = $this->createForm(ImageType::class, $image);
 
         $form->handleRequest($request);
@@ -136,6 +136,9 @@ class EventController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $event->addImage($image);
+
             /** @var UploadedFile $brochureFile */
             $imageFile = $form->get('image')->getData();
 
@@ -233,7 +236,7 @@ class EventController extends AbstractController
         $filesystem->remove($path);
 
 
-        return $this->redirectToRoute('adminIndexPath');
+        return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $eventId]);
 
 
         }
