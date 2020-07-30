@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\ImageType;
 use App\Entity\Admin;
 use App\Entity\Event;
 use App\Entity\Image;
@@ -128,14 +127,8 @@ class EventController extends AbstractController
         
         $image = new Image();
         
-        
-        $form = $this->createForm(ImageType::class, $image);
 
-        $form->handleRequest($request);
-
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (isset($_POST['fileSent'])) {
 
             $event->addImage($image);
 
@@ -156,10 +149,23 @@ class EventController extends AbstractController
 
               
             }
+            
 
         $images = $event->getImages();
 
-        return $this->render('event/showone.html.twig', ['cart' => $cart , 'event' => $event , 'images' => $images, 'form' => $form->createView()]);
+        $imagesArray = [];
+
+
+        foreach($images as $key => $image){
+
+            $imagesArray[$key] = base64_encode(stream_get_contents($image->getImage()));
+        }
+
+
+
+
+    
+        return $this->render('event/showone.html.twig', ['imagesArray' => $imagesArray, 'cart' => $cart , 'event' => $event , 'images' => $images]);
 
     }
 

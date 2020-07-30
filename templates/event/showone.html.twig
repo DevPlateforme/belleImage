@@ -22,22 +22,26 @@
 
 
 
-
-   </br>
-   </br>
-   </br>
-
-
- {% for image in images %}  
-
-
- {{ image.src }}
-
-
-
     
 
-  {% endfor %}
+{% for key,image in images %}  
+
+
+  <img alt="Embedded Image" src="data:image/png;base64,{{ imagesArray[key] }}" />
+
+
+
+{%endfor%}
+ 
+
+
+
+
+
+
+   </br>
+   </br>
+   </br>
 
 
 
@@ -48,13 +52,21 @@
    {% if app.user %}
 
 
-   {{ form_start(form) }}
 
-   <input type = "file" name="myFile"/>
+</br>
+</br>
+</br>
+
+   <form enctype= 'multipart/form-data' method='post'>
+
+    <input type = "file" name="myFile"/>
+     <input type = "hidden" name="fileSent"/>
 
     <input type='submit' value='ajouter une photo'>
-    
-   {{ form_end(form) }}
+
+
+
+   </form>
 
 
 </br>
@@ -84,6 +96,7 @@
 {% for image in images %}  
 
 
+ 
 
          var src = {{ image.id }}
 
