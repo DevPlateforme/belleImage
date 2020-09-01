@@ -12,7 +12,38 @@
 
 Voici vos photos</h1>
 
+{%for key, image in cart %}
+
+<a href="{{ asset(image.assetSrc) }}" download>
+
+<h1>Photo {{ key + 1 }}</h1> 
+
+</a>
+
+{%endfor%}
 
 
+Vos photos ont été envoyées à votre adresse mail : <b>{{ email }} </b> </br>
 
+
+Une question à nous poser? Vous n'avez pas recus vos photos? N'hésitez pas, nous prendrons le temps de répondre à toutes vos questions. </br>
 {% endblock %}
+
+ {% block javascripts %}
+
+<script>
+
+
+        xrq = new XMLHttpRequest();
+
+        xrq.onload = function(){
+
+            console.log("mail sent");
+        }
+        xrq.open('GET', '{{ path("mailerPath", { "emailReceiver": email } ) }}', true);        
+        xrq.send();
+
+</script>
+
+
+{%endblock%}

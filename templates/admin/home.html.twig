@@ -20,10 +20,19 @@ Bienvenue dans l'espace de gestion de BelleImage
 
 <input type='text' name='eventCode' placeholder='Saisissez un code'>
 
+
+
 <input type='submit' name='voir l'évènement' value='voir'>
 
 
 </form>
+
+<br>
+{% if notFoundMessage is defined %}
+
+     <span style ='color:red'>Evenement non trouvé, vous avez peut être mal ortographié le code. </br>Vous avez oublié le code? Merci de nous contacter par message, nous vous répondrons dans les plus brefs délais</span>
+    
+{% endif %}
 
 
 {%endif%}

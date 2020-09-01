@@ -50,7 +50,7 @@
 
 
       {%else%}
-                 <a href= {{ path("seeCartPath") }}><button>See your cart</button></a>
+                 <a href= {{ path("seeCartPath") }}><button>Voir votre panier</button></a>
 
 
             {%endif%}
@@ -88,7 +88,9 @@
 
       {%else%}
 
-      <form method='post' action='{{path("newTicketPath")}}'>
+
+
+      <form id='messageBox' method='post' action='{{path("newTicketPath")}}'>
 
 
 <label>Name</label>

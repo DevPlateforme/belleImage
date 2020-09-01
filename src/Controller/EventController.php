@@ -53,17 +53,15 @@ class EventController extends AbstractController
                 $response->send();
 
     
-            return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $id]);
+                return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $id]);
 
-            } 
+                }  else 
 
-            return $this->redirectToRoute('adminIndexPath');
+            return $this->render('admin/home.html.twig', ['notFoundMessage' => 'true']);
 
         }
     
     }
-
-
 
     /**
      * @Route("/event/new", name="newEventPath")
@@ -86,9 +84,13 @@ class EventController extends AbstractController
                 
                 $event->setCode($_POST['eventCode']);
 
+                $event->setPath($this->getParameter('eventsDirectory'). $_POST['eventName']);
+
                 $manager->persist($admin);
 
                 $manager->flush();
+
+                mkdir($this->getParameter('eventsDirectory'). $event->getName(), 0777, true);
 
 
                 return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $event->getId()]);
@@ -107,6 +109,14 @@ class EventController extends AbstractController
     function deleteEvent($eventId, EntityManagerInterface $manager){
 
         $event = $this->getDoctrine()->getRepository(Event::class)->find($eventId);
+
+        $path = $event->getPath();
+
+        array_map('unlink', glob($path ."/*"));
+
+        rmdir($path);
+
+
         
         $manager->remove($event);
 
@@ -114,6 +124,7 @@ class EventController extends AbstractController
     
         return $this->redirectToRoute('showAllEventsPath');
 
+    
     }
 
 
@@ -184,15 +195,10 @@ class EventController extends AbstractController
 
     }
 
-
-
-    
-             
-
+        
     /**
      * @Route("/event/image/delete", name="deleteImagePath")
      */
-
     
 
     function deleteImage(Request $request, EntityManagerInterface $manager){
@@ -277,7 +283,6 @@ class EventController extends AbstractController
 
             $updatedCookieValue = $cookie;
 
-
             $cookie = new Cookie('cart', $updatedCookieValue , strtotime('+1 day'));
             $response->headers->setCookie($cookie);
             $response->send();
@@ -295,15 +300,11 @@ class EventController extends AbstractController
             $response->headers->setCookie($cookie);
             $response->send();
 
-
              
          return new JsonResponse(['cookieContent'=>'premier article ajouté!']);
 
            }
-
-      }
-
-           
+        }
     }
     
 
@@ -347,7 +348,6 @@ class EventController extends AbstractController
         
         return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => null, 'cartValue' => null]);
 
-        
 
 
     }
@@ -385,7 +385,7 @@ class EventController extends AbstractController
      */
 
 
-    function payment($imagesNumber){
+    function payment($imagesNumber,Request $request){
 
 
         $token = $_POST['stripeToken'];
@@ -427,18 +427,43 @@ class EventController extends AbstractController
             return $this->render('event/paymentError.html.twig', ['error' => $error]);
 
             }
-
-
-
-
-          return $this->render('event/collect.html.twig');
-
+           
+             
+             return $this->redirectToRoute('collectPath', ['email' => $email]);
              }
 
+             
+             
+         /**
+          * @Route("/event/cart/collect/{email}", name="collectPath")
+          */
 
-    
+             function collect(Request $request, $email){
+
+                
+             $cart = $request->cookies->get('cart');
+
+             $cart = explode(',' , $cart);
+ 
+             $cartArray = [];
+             
+             foreach($cart as $imageId){
+ 
+                 $repo = $this->getDoctrine()->getRepository(Image::class);
+ 
+                 $img = $repo->find($imageId);
+ 
+                 
+                 $cartArray[] = $img;
+ 
+             }        
+ 
+           return $this->render('event/collect.html.twig', ['cart' => $cartArray , 'email' => $email]);
+ 
+
+             }
      
-
+                
              
 
     /**
@@ -467,6 +492,4 @@ class EventController extends AbstractController
     }
 
 
-
-    
 }

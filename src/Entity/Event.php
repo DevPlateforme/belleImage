@@ -39,6 +39,11 @@ class Event
      */
     private $code;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $path;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -112,6 +117,18 @@ class Event
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(?string $path): self
+    {
+        $this->path = $path;
 
         return $this;
     }
