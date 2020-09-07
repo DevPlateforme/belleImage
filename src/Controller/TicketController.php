@@ -119,6 +119,33 @@ class TicketController extends AbstractController
 
 
 
+    /**
+     * @Route("/ticket/delete/{ticketId}/{ticketStatus}", name="deleteTicketPath")
+     */
+
+    function deleteTicketPath(EntityManagerInterface $manager, $ticketId, $ticketStatus){
+
+        $ticket = $this->getDoctrine()->getRepository(Ticket::class)->find($ticketId);
+
+          
+        $manager->remove($ticket);
+
+        $manager->flush();
+
+        if($ticketStatus == 'done'){
+
+            return $this->redirectToRoute('showAllDoneTicketsPath');
+        } else{
+            
+            return $this->redirectToRoute('showAllPendingTicketsPath');
+
+
+        }
+    
+
+
+    }
+
 
 
 

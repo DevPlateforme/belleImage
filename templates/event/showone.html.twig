@@ -4,52 +4,74 @@
 
 {% block body %}
 <style>
-    img{
 
-    display: block;
-    width:20%;
-    margin-left: auto;
-    margin-right: auto;
+
+   
+   #myContainer{
+
+
+     position : relative;
+
+     width : 90vw;
+
+     height : 90vh;
+
+     display : flex;
+
+     flex-wrap : wrap;
+
+     justify-content : flex-start;
+
+     margin-left :50px;
+
+     align-items :flex-start;
+
+     flex-direction :row;
 
     }
+
+
+    .imgDiv{
+
+      position: relative;
+
+      display :flex;
+
+      z-index: 1;
+
+    }
+
+    img{
+
+    z-index: 1;
+
+    width: auto;
+
+    height : 150px;
+
+    }
+
+    #cartBtn{
+
+       height : 25px;
+
+       width : 25px;
+    }
+
+
+    
 </style>
 
    <h1>{{event.name}}</h1>
 
 
-    <main id='mymain'>
+
+   <div id ='myContainer'></div>
 
 
 
+     
 
-    
-
-{% for image in images %}  
-
-
-<img src="{{ asset(image.assetSrc) }}" alt="myflag">
-
-
-</br>
-
-
-{%endfor%}
- 
-
-
-
-
-
-
-   </br>
-   </br>
-   </br>
-
-
-
-   </br>
-   </br>
-   </br>
 
    {% if app.user %}
 
@@ -67,7 +89,6 @@
     <input type='submit' value='ajouter une photo'>
 
 
-
    </form>
 
 
@@ -82,7 +103,6 @@
 
    {%endif%}
 
-       </main>
 
 {% endblock %}
 
@@ -108,18 +128,31 @@
 
   var mybutton = document.createElement("BUTTON");
 
-  var mymain = document.getElementById('mymain');
+  var myContainer = document.getElementById('myContainer');
 
   var mydiv = document.createElement("div");
 
-  mydiv.append(mybutton);
+  mydiv.classList.add("imgDiv");
+                        
 
-     mydiv.append(src);
+
+   var myImg = document.createElement("IMG");
+
+    myImg.src = "{{ asset(image.assetSrc) }}"
+
+
+    mydiv.append(myImg);
+
+    
+  mydiv.appendChild(mybutton);  
+
+
+
+
 
     
 
-
-  mymain.prepend(mydiv);
+ myContainer.prepend(mydiv);
 
 
 
@@ -144,6 +177,10 @@
 
              
          mybutton.style.opacity = '0';
+
+
+                  var x = {{image.id}}
+
 
 
           var imageId = document.createElement("input");
@@ -174,11 +211,11 @@
 
            submit.setAttribute('type', 'submit');
 
-           submit.setAttribute('value', 'supprimer');
+           submit.setAttribute('value', 'x');
 
            form.append(submit);
            form.append(imageId);
-            form.append(eventId);
+           form.append(eventId);
 
 
 
@@ -186,7 +223,6 @@
          mydiv.append(form);
 
 
-         var x = {{image.id}}
 
 
 
@@ -196,7 +232,9 @@
     
           mybutton.setAttribute('value' , '{{ image.id}}')
           mybutton.setAttribute('onclick' , 'addImgToCart(event)')
-          mybutton.innerHTML = 'Ajouter au panier';    
+          mybutton.setAttribute('id' , 'cartBtn')
+
+          mybutton.innerHTML = '+';    
 
 
     
@@ -207,7 +245,7 @@
 
                     mybutton.setAttribute('value' , '')
                     mybutton.setAttribute('onclick' , '')
-                   mybutton.innerHTML = 'Ajouté';    
+                   mybutton.innerHTML = 'v';    
                 {% endif %}            
             {%endfor%}               
      
@@ -238,7 +276,7 @@
         
         var imageId = event.target.value;
 
-        event.target.innerHTML = 'ajouté';
+        event.target.innerHTML = 'v';
 
         event.target.setAttribute('onclick', '');
 

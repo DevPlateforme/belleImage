@@ -129,6 +129,8 @@ class EventController extends AbstractController
 
 
 
+
+
     /**
      * @Route("/event/showone/{eventId}", name="showOneEventPath")
      */

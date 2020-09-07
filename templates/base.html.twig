@@ -5,18 +5,166 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        
-        
-         <link rel="stylesheet" href="{{ asset('assets/style.css') }}" >
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-        
-        {% block stylesheets %}{% endblock %}
+       
+       
+                
     </head>
     <body>
 
     <style>
 
+
+
+    #messageIcon{
+
+      background: blue;
+
+
+      margin-top: 400px;
+
+      float: right;
+
+
+      height : 60px;
+
+      width: 60px;
+
+      border-radius: 40px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+    }
+
+
+        #messageIcon:hover{
+
+
+          opacity: 85%;
+
+    }
+
+
+
+    
+
+
+    #messageBox{
+      
+      float: right;
+
+      position: relative;
+
+      margin-right: 20px;
+
+      margin-top : -50px;
+
+      z-index: 2;
+
+      background : grey;
+
+      width : 300px;
+
+      height : 500px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items:center;
+
+
+      border-radius: 20px;
+
+      opacity:0;
+
+    }
+
+
+    #formTitle{
+
+     background: white;
+
+     width: 100%;
+
+
+    display: flex;
+
+    justify-content: center;
+
+    border-radius: 20px 20px 0px 0px;
+
+    }
+
+
+    #closeBoxLogo{
+
+      margin-left:20%;
+    }
+
+
+
+
+    #messageForm{
+
+
+      width: 100%;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+    }
+
+
+
+#messageContent{
+
+  display:flex;
+
+  width: 100%;
+
+  justify-content:
+
+  height: 1000px;
+
+}
+
+
+
+.formInput{
+
+  width: 70%;
+}
+
+#messageInput{
+
+  height: 100px;
+
+  width: 80%;
+}
+
+#messageButton{
+
+  width: 20%;
+}
+
+
+
+
+
+
+
     </style>
+
+            {% block stylesheets %}{% endblock %}
+
     <div class="fixed-top">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
@@ -25,9 +173,9 @@
 
        {%if app.user%}
 
-      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Mes tickets en cours</h5></a>
+      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Messages non traités</h5></a>
 
-            <a href= '{{ path("showAllDoneTicketsPath")}}'><h5 class="text-white h4">Mes tickets réalisés</h5></a>
+            <a href= '{{ path("showAllDoneTicketsPath")}}'><h5 class="text-white h4">Messages traités</h5></a>
           
           {%else%}
 
@@ -65,20 +213,7 @@
 </br>
         {% block body %}{% endblock %}
 
-        
-
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+       
 
       {%if app.user%}
            
@@ -88,31 +223,88 @@
 
       {%else%}
 
+      <div id ='messageBox'>
+
+         <div id='formTitle'>
+  
+           <h1>Contact</h1>
+
+           <a onclick='closeMessageBox()'><h1 id='closeBoxLogo'>x</h1></a>
+
+          
+        </div>
+       
+            
+
+      <form id='messageForm'  method='post' action='{{path("newTicketPath")}}'>
 
 
-      <form id='messageBox' method='post' action='{{path("newTicketPath")}}'>
 
+      <label>Name</label></br>
+      <input class='formInput' type = 'text' name = 'username'></br>
 
-<label>Name</label>
-  <input type = 'text' name = 'username'></br>
-<label>Envoyez un message à Claude</label></br>
-
-  <input type = 'text' name = 'ticketMessage'></br>
-
-  <label>Phone Number</label></br>
-  <input type = 'text' name = 'ticketPhoneNumber'> </br>
+       <label>Phone Number</label></br>
+       <input class='formInput' type = 'text' name = 'ticketPhoneNumber'> </br>
     
-    <label>Email</label></br>
-    <input type = 'text' name = 'ticketMail'></br>
+      <label>Email</label></br>
+      <input class='formInput' type = 'text' name = 'ticketMail'></br>
 
-<input type='submit' id='ticketSubmit'> 
-</form>
+    <label>Envoyez un message à Claude</label></br>
+
+    <div id='messageContent'>
+
+        <input id= 'messageInput' type = 'text' name = 'ticketMessage'></br>
+
+        <input id='messageButton' type='submit' id='ticketSubmit'> 
+
+
+        </div>
+
+    </form>
+
+  </div>
+
+  
+
+  <div id='messageIcon'>
+      <a onclick='openMessageBox()'><i id = 'messageBoxLogo' style='color:white' class="fas fa-comment-alt fa-2x"></i></a>
+  </div>
 
 
  {%endif%}
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
+<script>
+
+
+var messageIcon = document.getElementById('messageIcon');
+
+
+var messageBox = document.getElementById('messageBox');
+
+
+
+function openMessageBox(){
+
+  messageIcon.style.opacity = 0;
+
+   messageBox.style.opacity = 1;
+
+}
+
+
+
+function closeMessageBox(){
+
+    messageIcon.style.opacity = 1;
+
+       messageBox.style.opacity = 0;
+
+
+}
+
+</script>
         {% block javascripts %}{% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
