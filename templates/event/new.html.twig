@@ -23,7 +23,7 @@
 
       </br>
 
-   <input type='submit' name='createEvent' value = "créer l'évènement">
+   <input type='submit' name='createEvent' value = "créer l'évènement" onclick='checkNewEvent(event)'>
 
  </form>
 
@@ -58,12 +58,15 @@ var codeErrorMsg = document.getElementById('codeErrorMsg');
 
 
 
-function codeCheck(event){
+function checkNewEvent(event){
 
+   event.preventDefault();
+          
 
-  xrq = new XMLHttpRequest();
+           
+    xrq = new XMLHttpRequest();
 
-  xrq.onload = function(){
+    xrq.onload = function(){
 
      var nameValidity = JSON.parse(this.responseText).validName;
 
@@ -71,10 +74,16 @@ function codeCheck(event){
     var codeValidity = JSON.parse(this.responseText).validCode;
 
 
-   console.log('ok');
+   console.log("name :" + JSON.parse(this.responseText).validName);
+
+      console.log("code: " + JSON.parse(this.responseText).validCode);
+
+
+
 
     if( (nameValidity == true) && (codeValidity == true) ){
-                  console.log('ok, event valid');
+                  myForm.submit();
+
     }
 
     if(nameValidity == false){
@@ -90,7 +99,7 @@ function codeCheck(event){
       
         console.log('code false');
 
-        codeErrorMsg.innerHTML = 'Vous avez déjà attribué ce nom à un autre évènement';
+        codeErrorMsg.innerHTML = 'Vous avez déjà attribué ce code à un autre évènement';
 
 
     }
@@ -98,7 +107,10 @@ function codeCheck(event){
 
   xrq.open('POST', '{{ path("checkValidityOfEventPath") }}',true);
 
-   xrq.send("eventCode=" + eventCode.value);
+  xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+
+   xrq.send("eventCode=" + eventCode.value + '&eventName=' + eventName.value);
 
 }
 
@@ -106,7 +118,7 @@ function codeCheck(event){
 
 function initErrorMsg(){
 
-
+  codeErrorMsg.innerHTML = '';
   nameErrorMsg.innerHTML = '';
 }
 
