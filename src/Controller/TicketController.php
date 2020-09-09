@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Ticket;
+use App\Entity\User;
+use App\Entity\Admin;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,6 +21,16 @@ class TicketController extends AbstractController
     public function new(EntityManagerInterface $manager)
     {
         if(isset($_POST['ticketMessage'])){
+
+            $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+
+            $pinCount = $admin->getPinCount();
+            
+            $admin->setPinCount($pinCount+1);
+
+
+
+
              $ticket = new Ticket();
 
              $ticket->setUsername($_POST['username']);
@@ -44,7 +56,18 @@ class TicketController extends AbstractController
     /**
      * @Route("/ticket/show/all/pending", name="showAllPendingTicketsPath")
      */
-    public function showPending(){        
+    public function showPending(EntityManagerInterface $manager){     
+        
+        
+              //set message Pin to 0
+
+       $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+        
+       $admin->setPinCount(0);
+
+       $manager->persist($admin);
+       $manager->flush();
+      
 
         $repo = $this->getDoctrine()->getRepository(Ticket::class);
 
@@ -64,13 +87,16 @@ class TicketController extends AbstractController
      */
 
 
-    public function showDone(){        
+    public function showDone(EntityManagerInterface $manager){
+        
 
         $repo = $this->getDoctrine()->getRepository(Ticket::class);
 
         $tickets = $repo->findBy(
             ['status' => 'done']
         );
+
+        
       
 
         return $this->render('ticket/showallDone.html.twig', ['tickets' => $tickets]);
@@ -106,6 +132,8 @@ class TicketController extends AbstractController
 
 
     public function setTicketToPending($ticketId, EntityManagerInterface $manager){     
+
+
 
         $repo = $this->getDoctrine()->getRepository(Ticket::class);
         $ticket = $repo->find($ticketId);

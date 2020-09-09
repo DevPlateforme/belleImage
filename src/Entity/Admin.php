@@ -40,10 +40,16 @@ class Admin implements UserInterface
      */
     private $mail;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pinCount;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
         $this->chats = new ArrayCollection();
+        $this->$pinCount = 0;
     }
 
     public function getId(): ?int
@@ -151,6 +157,18 @@ class Admin implements UserInterface
     function __toString(){
 
         return $this->name;
+    }
+
+    public function getPinCount(): ?int
+    {
+        return $this->pinCount;
+    }
+
+    public function setPinCount(?int $pinCount): self
+    {
+        $this->pinCount = $pinCount;
+
+        return $this;
     }
 
 

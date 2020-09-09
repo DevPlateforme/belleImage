@@ -177,6 +177,8 @@
        {%if app.user%}
 
       <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Messages</h5></a>
+
+      <h3> {{ app.user.pinCount}} </h3>
           
           {%else%}
 

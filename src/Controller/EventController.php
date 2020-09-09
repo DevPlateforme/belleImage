@@ -76,6 +76,7 @@ class EventController extends AbstractController
 
                 $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
 
+
                 $events = $admin->getEvents();
                    
                 $events->add($event);

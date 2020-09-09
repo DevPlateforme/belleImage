@@ -39,9 +39,16 @@ class User
      */
     private $chats;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pinCount;
+
     public function __construct()
     {
         $this->chats = new ArrayCollection();
+
+        $this->$pinCount = 0;
     }
 
     public function getId(): ?int
@@ -120,5 +127,17 @@ class User
     function __tostring(){
 
         return 'value';
+    }
+
+    public function getPinCount(): ?int
+    {
+        return $this->pinCount;
+    }
+
+    public function setPinCount(?int $pinCount): self
+    {
+        $this->pinCount = $pinCount;
+
+        return $this;
     }
 }
