@@ -22,7 +22,7 @@
 
      justify-content : flex-start;
 
-     margin-left :50px;
+     margin-left :5%;
 
      align-items :flex-start;
 
@@ -39,6 +39,9 @@
 
       z-index: 1;
 
+
+      justify-content: flex-start;
+
     }
 
     img{
@@ -47,8 +50,13 @@
 
     width: auto;
 
-    height : 150px;
+    height : 200px;
 
+    }
+
+    .closeButton{
+
+       margin-left: -65%;
     }
 
     #cartBtn{
@@ -76,14 +84,60 @@
    {% if app.user %}
 
 
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 
-</br>
-</br>
-</br>
 
    <form enctype= 'multipart/form-data' method='post'>
 
-    <input type = "file" name="myFile"/>
+    <input type = "file" name="myFile[]" multiple="multiple"/>
      <input type = "hidden" name="fileSent"/>
 
     <input type='submit' value='ajouter une photo'>
@@ -211,7 +265,10 @@
 
            submit.setAttribute('type', 'submit');
 
-           submit.setAttribute('value', 'x');
+           submit.setAttribute('value', 'supprimer');
+
+           submit.classList.add("closeButton");
+
 
            form.append(submit);
            form.append(imageId);

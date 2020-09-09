@@ -33,8 +33,12 @@ class TicketController extends AbstractController
 
              $manager->flush();
         }
-        return $this->render('ticket/new.html.twig');
-    }
+
+        return new JsonResponse(['ticket' => 'ok']);
+
+     }
+
+
 
 
     /**

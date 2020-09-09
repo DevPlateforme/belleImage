@@ -49,10 +49,18 @@
 
 </style>
 
+  
+<a href='{{ path("showAllPendingTicketsPath") }}'><button>Messages non traités</button> <br>
+
+
+<a href='{{ path("showAllDoneTicketsPath") }}'><button>Messages traités</button> <br>
+
+
 
    <h1Voici tous vos tickets en attente</h1>
     
     <div class='bgContainer'>
+
 
  
 
@@ -81,6 +89,8 @@
       {%endfor%}
     
       </div>
+
+      
 
    {% endblock %}
 

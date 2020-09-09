@@ -72,7 +72,7 @@ class EventController extends AbstractController
 
         $event = new Event();
 
-           if(isset($_POST["createEvent"])){
+           if(isset($_POST["eventName"])){
 
                 $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
 
@@ -89,6 +89,9 @@ class EventController extends AbstractController
                 $manager->persist($admin);
 
                 $manager->flush();
+                
+                
+                
 
                 mkdir($this->getParameter('eventsDirectory'). $event->getName(), 0777, true);
 
@@ -100,7 +103,48 @@ class EventController extends AbstractController
         return $this->render('event/new.html.twig');
     }
 
+    
 
+
+    /**
+     * @Route("/event/checkValidity", name="checkValidityOfEventPath")
+     */
+
+    
+    function checkValidityOfNewEvent(){
+
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+
+        $nameValidity = true;
+
+        $codeValidity = true;
+
+        if(isset($_POST["eventCode"])){
+             
+            
+        foreach($events as $event){
+
+            if($event->getCode() == $_POST["eventCode"]){
+                $codeValidity = false;
+            }
+
+            
+            if($event->getName() == $_POST["eventName"]){
+                $nameValidity = false;
+            }
+        }
+
+    
+                return new JsonResponse(['validName' => $nameValidity , 'validCode' => $codeValidity ]);
+    
+
+        }
+
+        return new JsonResponse(['validName' => 'error' , 'validCode' => 'error' ]);
+
+        }
+
+       
     
 
     /**
@@ -151,41 +195,48 @@ class EventController extends AbstractController
         $eventName = $event->getName();
 
         
-        $image = new Image();
         
 
-        if (isset($_POST['fileSent'])) {
+        if (isset($_FILES["myFile"]["tmp_name"])) {
 
-            $event->addImage($image);
+            foreach( $_FILES["myFile"]["tmp_name"] as $index => $tmpName ){
 
-
-
-                    $image->setName('name');
+                $image = new Image();
 
 
-                    $path = $this->getParameter('eventsDirectory'). $eventName . '/' . $_FILES['myFile']['name'];
+                $event->addImage($image);
+
+
+                    $image->setName('imgName');
+
+
+                    $path = $this->getParameter('eventsDirectory'). $eventName . '/' . $_FILES['myFile']['name'][$index];
 
 
                     if (!file_exists($this->getParameter('eventsDirectory'). $eventName)) {
                         mkdir($this->getParameter('eventsDirectory'). $eventName, 0777, true);
                     }
 
-                    move_uploaded_file($_FILES['myFile']['tmp_name'], $path);
+                    move_uploaded_file($_FILES['myFile']['tmp_name'][$index], $path);
 
 
                     $image->setSrc($path);
 
-                    $image->setAssetSrc('assets/uploads' . '/' . $eventName . '/' . $_FILES['myFile']['name']);
+                    $image->setAssetSrc('assets/uploads' . '/' . $eventName . '/' . $_FILES['myFile']['name'][$index]);
     
                     $manager->persist($image);
     
                     $manager->flush();
 
 
-                    return $this->redirectToRoute('showOneEventPath', ['eventId' => $eventId ]);
 
               
             }
+
+            return $this->redirectToRoute('showOneEventPath', ['eventId' => $eventId ]);
+
+         
+        }
             
 
         $images = $event->getImages();

@@ -16,20 +16,20 @@
     <style>
 
 
+  
+
 
     #messageIcon{
 
       background: blue;
 
+      margin-top: 250px;
 
-      margin-top: 400px;
+      margin-left: 70vw;
 
-      float: right;
+      height : 80px;
 
-
-      height : 60px;
-
-      width: 60px;
+      width: 80px;
 
       border-radius: 40px;
 
@@ -66,8 +66,7 @@
 
       z-index: 2;
 
-      background : grey;
-
+      background : silver;
       width : 300px;
 
       height : 500px;
@@ -112,7 +111,6 @@
 
     #messageForm{
 
-
       width: 100%;
 
       display: flex;
@@ -124,19 +122,17 @@
 
 
 
-#messageContent{
+   #messageContent{
 
-  display:flex;
+      display:flex;
 
-  width: 100%;
+      width: 100%;
 
-  justify-content:
+      justify-content:
 
-  height: 1000px;
+      height: 1000px;
 
-}
-
-
+     }
 
 .formInput{
 
@@ -153,8 +149,15 @@
 #messageButton{
 
   width: 20%;
+
 }
 
+
+.eventLinks{
+
+  position: relative;
+  top: 500px;
+}
 
 
 
@@ -173,9 +176,7 @@
 
        {%if app.user%}
 
-      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Messages non traités</h5></a>
-
-            <a href= '{{ path("showAllDoneTicketsPath")}}'><h5 class="text-white h4">Messages traités</h5></a>
+      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Messages</h5></a>
           
           {%else%}
 
@@ -217,9 +218,9 @@
 
       {%if app.user%}
            
-           <a href= '{{ path("showAllEventsPath")}} '><button>Voir tes évènements</button></a>
+           <a href='{{path("showAllEventsPath")}}' ><button class='eventLinks'>Voir tes évènements</button></a>
 
-           <a href= ' {{ path("newEventPath")}}'><button>Créer un évènement</button></a>
+           <a href='{{ path("newEventPath")}}'><button class='eventLinks'>Créer un évènement</button></a>
 
       {%else%}
 
@@ -229,14 +230,14 @@
   
            <h1>Contact</h1>
 
-           <a onclick='closeMessageBox()'><h1 id='closeBoxLogo'>x</h1></a>
+           <a onclick='closeMessageBox()'><button id='closeBoxLogo'>x</button></a>
 
           
         </div>
        
             
 
-      <form id='messageForm'  method='post' action='{{path("newTicketPath")}}'>
+      <form id='messageForm'  method='post'>
 
 
 
@@ -255,7 +256,7 @@
 
         <input id= 'messageInput' type = 'text' name = 'ticketMessage'></br>
 
-        <input id='messageButton' type='submit' id='ticketSubmit'> 
+        <input id='messageButton' type='submit' id='ticketSubmit' onclick='sendTicket(event)'> 
 
 
         </div>
@@ -264,11 +265,13 @@
 
   </div>
 
+  <div id='messageSentDiv'></div>
+
   
 
-  <div id='messageIcon'>
-      <a onclick='openMessageBox()'><i id = 'messageBoxLogo' style='color:white' class="fas fa-comment-alt fa-2x"></i></a>
-  </div>
+  <a onclick='openMessageBox()'><div id='messageIcon'>
+      <i id = 'messageBoxLogo' style='color:white' class="fas fa-comment-alt fa-3x"></i>
+  </div></a>
 
 
  {%endif%}
@@ -282,6 +285,20 @@ var messageIcon = document.getElementById('messageIcon');
 
 
 var messageBox = document.getElementById('messageBox');
+
+var messageInput = document.getElementById('messageInput');
+
+var messageSentDiv = document.getElementById('messageSentDiv');
+
+
+
+function closeMessageSentNotif(){
+
+
+   messageSentDiv.innerHTML = '';
+
+}
+
 
 
 
@@ -302,6 +319,29 @@ function closeMessageBox(){
        messageBox.style.opacity = 0;
 
 
+}
+
+
+function sendTicket(event){
+
+  event.preventDefault();
+
+  var xrq = new XMLHttpRequest();
+
+  xrq.onload = function(){
+
+    messageSentDiv.innerHTML ="Votre message a bien été recu!! Nous vous recontacterons dans les plus brefs délais!! <button onclick='closeMessageSentNotif()'>X</button>"
+
+
+  }
+
+   xrq.open('POST', '{{path("newTicketPath")}}', true);
+
+  
+   xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+
+  xrq.send("ticketMessage=" + messageInput.value + "&username=" + messageInput.value + "&ticketPhoneNumber=" + messageInput.value + "&ticketMail=" + messageInput.value );
 }
 
 </script>

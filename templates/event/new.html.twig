@@ -9,17 +9,17 @@
 </style>
 
 
- <form method='post'>
+ <form id = 'myForm' method='post'>
 
    <label>Nom de l'évenement</label>
 
-      <input type = 'text' name = 'eventName'>
+      <input id='eventName' type = 'text' name = 'eventName'  onkeyup= 'initErrorMsg()'>
        
        </br>
 
    <label>Code de l'évènement</label>
 
-      <input type='text' name='eventCode'>
+      <input id='eventCode' type='text' name='eventCode'  onkeyup= 'initErrorMsg()' >
 
       </br>
 
@@ -27,5 +27,90 @@
 
  </form>
 
+ <div id='nameErrorMsg' style='color:red'></div>
+
+ <div id='codeErrorMsg' style='color:red'></div>
+
 
 {% endblock %}
+
+
+
+{%block javascripts%}
+
+
+<script>
+
+
+
+var eventCode = document.getElementById('eventCode');
+
+var eventName = document.getElementById('eventName');
+
+var myForm = document.getElementById('myForm');
+
+var nameErrorMsg = document.getElementById('nameErrorMsg');
+
+var codeErrorMsg = document.getElementById('codeErrorMsg');
+
+
+
+
+
+
+function codeCheck(event){
+
+
+  xrq = new XMLHttpRequest();
+
+  xrq.onload = function(){
+
+     var nameValidity = JSON.parse(this.responseText).validName;
+
+
+    var codeValidity = JSON.parse(this.responseText).validCode;
+
+
+   console.log('ok');
+
+    if( (nameValidity == true) && (codeValidity == true) ){
+                  console.log('ok, event valid');
+    }
+
+    if(nameValidity == false){
+
+        console.log('name false');
+
+        nameErrorMsg.innerHTML = 'Vous avez déjà attribué ce nom à un autre évènement';
+
+
+    }
+    
+    if (codeValidity == false){
+      
+        console.log('code false');
+
+        codeErrorMsg.innerHTML = 'Vous avez déjà attribué ce nom à un autre évènement';
+
+
+    }
+  }
+
+  xrq.open('POST', '{{ path("checkValidityOfEventPath") }}',true);
+
+   xrq.send("eventCode=" + eventCode.value);
+
+}
+
+
+
+function initErrorMsg(){
+
+
+  nameErrorMsg.innerHTML = '';
+}
+
+
+</script>
+
+{%endblock%}

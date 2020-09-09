@@ -44,9 +44,16 @@ class Event
      */
     private $path;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sameNameCount;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+
+        $this->sameNameCount = 1;
     }
 
     public function getId(): ?int
@@ -129,6 +136,18 @@ class Event
     public function setPath(?string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getSameNameCount(): ?int
+    {
+        return $this->sameNameCount;
+    }
+
+    public function setSameNameCount(int $sameNameCount): self
+    {
+        $this->sameNameCount = $sameNameCount;
 
         return $this;
     }
