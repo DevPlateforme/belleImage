@@ -16,14 +16,29 @@
     <style>
 
 
+   main{
+
+     height : 88vh;
+     
+
+   }
+
+
+   #myNav{
+     height: 12vh;
+   }
+
   
 
 
     #messageIcon{
 
-      background: blue;
+       position: fixed;
 
-      margin-top: 250px;
+       z-index: 3;
+
+
+      background: blue;
 
       margin-left: 70vw;
 
@@ -44,32 +59,29 @@
 
         #messageIcon:hover{
 
-
           opacity: 85%;
 
     }
 
 
 
-    
-
 
     #messageBox{
-      
-      float: right;
 
-      position: relative;
+      position: fixed;
+
+      bottom: 5vh;
+
+      right: 1vw;
+      
 
       margin-right: 20px;
 
-      margin-top : -50px;
-
       z-index: 2;
 
-      background : silver;
-      width : 300px;
+      width : 350px;
 
-      height : 500px;
+      height : 350px;
 
       display: flex;
 
@@ -85,12 +97,21 @@
     }
 
 
+    .formInput{
+
+      height: 20px;
+
+      width: 300px;
+    }
+
+
     #formTitle{
 
      background: white;
 
      width: 100%;
 
+     height: 15%;
 
     display: flex;
 
@@ -101,57 +122,85 @@
     }
 
 
-    #closeBoxLogo{
-
-      margin-left:20%;
-    }
-
-
 
 
     #messageForm{
 
       width: 100%;
 
+      height: 85%;
+
       display: flex;
 
       flex-direction: column;
 
       align-items: center;
+
+      justify-content: space-between;
+
+      background : red;
     }
 
 
+      #messageSenderInfo{
+
+            background : green;
+
+            height: 65%;
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: flex-start;
+
+    }
+
+
+  
 
    #messageContent{
 
       display:flex;
 
+      height: 35%;
+
       width: 100%;
 
       justify-content:
 
-      height: 1000px;
+
+      background: blue;
+
+
 
      }
 
-.formInput{
-
-  width: 70%;
-}
 
 #messageInput{
-
-  height: 100px;
 
   width: 80%;
 }
 
 #messageButton{
+  
+  display: block;
+  height: 100%;
 
   width: 20%;
 
 }
 
+
+
+ #closeBoxLogo{
+
+    margin-left:20%;
+}
 
 .eventLinks{
 
@@ -160,16 +209,17 @@
 }
 
 
+            {% block stylesheets %}{% endblock %}
+
 
 
 
 
     </style>
 
-            {% block stylesheets %}{% endblock %}
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<nav id='myNav' class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
     <a class="navbar-brand" href='{{ path("adminIndexPath")}}'>
           <img style='height: 60px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
@@ -202,13 +252,13 @@
     </div>
   </div>
 </nav>
-</div>
 
-</br>
-</br>
-</br>
-        {% block body %}{% endblock %}
 
+
+<main>
+
+{% block body %}{% endblock %}
+  
        
 
       {%if app.user%}
@@ -232,29 +282,40 @@
        
             
 
-      <form id='messageForm'  method='post'>
+     <form id='messageForm'  method='post'>
 
+       <div id='messageSenderInfo'>
+           <div>
+            <label>Name</label></br>
+           </div>
 
+           <div>
+            <input class='formInput' type = 'text' name = 'username'></br>
+           </div>
 
-      <label>Name</label></br>
-      <input class='formInput' type = 'text' name = 'username'></br>
+           <div>
+             <label>Phone Number</label></br>
+            </div>
 
-       <label>Phone Number</label></br>
-       <input class='formInput' type = 'text' name = 'ticketPhoneNumber'> </br>
-    
-      <label>Email</label></br>
-      <input class='formInput' type = 'text' name = 'ticketMail'></br>
+            <div>
+               <input class='formInput' type = 'text' name = 'ticketPhoneNumber'> </br>
+             </div>
+            
+            <div>
+              <label>Email</label></br>
+            </div>
+            <div>
+              <input class='formInput' type = 'text' name = 'ticketMail'></br>
+            </div>
+      </div>
 
-    <label>Envoyez un message à Claude</label></br>
+      <div id='messageContent'>
 
-    <div id='messageContent'>
+            <input placeholder = 'Saissez votre message' id= 'messageInput' type = 'text' name = 'ticketMessage'></br>
 
-        <input id= 'messageInput' type = 'text' name = 'ticketMessage'></br>
+            <input id='messageButton' type='submit' id='ticketSubmit' onclick='sendTicket(event)'> 
 
-        <input id='messageButton' type='submit' id='ticketSubmit' onclick='sendTicket(event)'> 
-
-
-        </div>
+       </div>
 
     </form>
 
@@ -270,6 +331,12 @@
 
 
  {%endif%}
+
+
+    </main>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
@@ -344,5 +411,7 @@ function sendTicket(event){
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+   
     </body>
 </html>

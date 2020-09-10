@@ -55,13 +55,58 @@ class EventController extends AbstractController
     
                 return $this->redirectToRoute('showOneEventPath', [ 'eventId' => $id]);
 
-                }  else 
-
-            return $this->render('admin/home.html.twig', ['notFoundMessage' => 'true']);
+                } 
 
         }
     
     }
+
+
+    /**
+     * @Route("/event/checkifexist", name="doesEventExistPath")
+     */
+
+    public function checkExisenceOfEvent(EntityManagerInterface $manager)
+    {
+
+        
+        if(isset($_POST['checkedCode'])){
+
+
+            if($this->getDoctrine()->getRepository(Event::class)->findOneBy(['code' => $_POST['checkedCode']])){
+
+                $event = $this->getDoctrine()->getRepository(Event::class)->findOneBy(['code' => $_POST['checkedCode']]);
+
+                $id = $event->getId();
+
+
+                $response = new Response();
+
+                $eventCookie = new Cookie('eventCookie', $id , strtotime('+1 day'));
+
+                $response->headers->setCookie($eventCookie);
+                $response->send();
+
+    
+                return new JsonResponse(['validCode' => true ]);
+
+                } 
+
+               else {
+
+                return new JsonResponse(['validCode' => false ]);
+
+              }
+
+
+         }
+
+
+    }
+
+
+
+
 
     /**
      * @Route("/event/new", name="newEventPath")

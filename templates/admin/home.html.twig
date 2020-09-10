@@ -2,40 +2,58 @@
 
 {% block title %}Trouvez votre évènement{% endblock %}
 
+   {% block stylesheets %}
+
+            
+   main{
+        background-image: url('{{ asset("assets/img/camera.jpg") }}');
+        background-size: cover;
+
+        object-fit: contain;
+
+
+    }
+         
+
+
+         
+             
+             
+             {% endblock %}
+
+
 {% block body %}
 
-<style>
+          
 
-</style>
 
 {% if app.user %}
 
 Bienvenue dans l'espace de gestion de BelleImage
 {%else%}
 
-<h1>Trouvez votre évènement</h1>
+<h1 style='color:white'>Trouvez votre évènement</h1>
 
-<p>Saisissez le code fourni par le créateur de l'évènement que vous cherchez</p>
-
-
-
-<form method='post' action='{{ path("searchEventPath")}}'>
-
-<input type='text' name='eventCode' placeholder='Saisissez un code'>
+<p style='color:white'>Saisissez le code fourni par le créateur de l'évènement que vous cherchez</p>
 
 
 
-<input type='submit' name='voir l'évènement' value='voir'>
+<form id='myForm' method='post' action='{{ path("searchEventPath")}}'>
+
+<input id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
+
+
+
+<input onclick='checkEvent(event)' type='submit' name='voir l'évènement' value='voir'>
 
 
 </form>
 
-<br>
-{% if notFoundMessage is defined %}
+     <span id='errorMsg' style ='color:red'></span>
 
-     <span style ='color:red'>Evenement non trouvé, vous avez peut être mal ortographié le code. </br>Vous avez oublié le code? Merci de nous contacter par message, nous vous répondrons dans les plus brefs délais</span>
-    
-{% endif %}
+
+<br>
+
 
 
 {%endif%}
@@ -44,3 +62,56 @@ Bienvenue dans l'espace de gestion de BelleImage
 
 
 {% endblock %}
+
+
+{%block javascripts %}
+
+<script>
+
+var myForm = document.getElementById('myForm');
+var errorMsg = document.getElementById('errorMsg');
+var eventCode = document.getElementById('eventCode');
+
+
+function checkEvent(event){
+
+     event.preventDefault();
+
+     xrq = new XMLHttpRequest();
+
+     xrq.onload = function(){
+
+          if( JSON.parse(this.responseText).validCode == false){
+
+               errorMsg.innerHTML = 'Evenement non trouvé, vous avez peut être mal ortographié le code. </br>Vous avez oublié le code? Merci de nous contacter par message, nous vous répondrons dans les plus brefs délais';
+
+          } else if (JSON.parse(this.responseText).validCode == true){
+               
+               myForm.submit();
+
+          }
+
+
+     }
+
+     xrq.open('POST', '{{ path("doesEventExistPath") }}' ,true);
+
+     xrq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+     xrq.send('checkedCode=' + eventCode.value );
+
+
+}
+
+
+function initErrorMsg(){
+   
+   errorMsg.innerHTML = " ";
+
+
+}
+
+
+
+</script>
+{%endblock%}
