@@ -67,6 +67,26 @@
     }
 
 
+    #addedImgMsg{
+
+       position:fixed;
+
+       z-index: 4;
+
+       top: 90vh;
+
+       right: 80vw;
+
+       background: yellow;
+
+       width: 150px;
+
+       height: 50px;
+
+       opacity: 0;
+    }
+
+
     
 </style>
 
@@ -77,7 +97,7 @@
    <div id ='myContainer'></div>
 
 
-
+  
      
 
 
@@ -155,6 +175,12 @@
 </br>
 
 
+{%else%}
+
+
+
+   <div id='addedImgMsg' style='color:blue'> Image ajoutée à votre  <i class="fas fa-1x fa-cart-arrow-down"></i> </div>
+
    {%endif%}
 
 
@@ -179,10 +205,10 @@
          console.log(src);
 
 
+  var myContainer = document.getElementById('myContainer');
 
   var mybutton = document.createElement("BUTTON");
 
-  var myContainer = document.getElementById('myContainer');
 
   var mydiv = document.createElement("div");
 
@@ -290,6 +316,10 @@
           mybutton.setAttribute('value' , '{{ image.id}}')
           mybutton.setAttribute('onclick' , 'addImgToCart(event)')
           mybutton.setAttribute('id' , 'cartBtn')
+          mybutton.classList.add("btn");
+          mybutton.classList.add("btn-success");
+
+
 
           mybutton.innerHTML = '+';    
 
@@ -330,6 +360,12 @@
 
 
       function addImgToCart(event){
+
+
+        document.getElementById('addedImgMsg').style.opacity = 1;
+
+        setTimeout(function(){  document.getElementById('addedImgMsg').style.opacity = 0;}, 3000);
+        
         
         var imageId = event.target.value;
 

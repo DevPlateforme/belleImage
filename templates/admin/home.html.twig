@@ -31,25 +31,23 @@
 Bienvenue dans l'espace de gestion de BelleImage
 {%else%}
 
+<div style=' margin-left: 20px;' >
 <h1 style='color:white'>Trouvez votre évènement</h1>
 
 <p style='color:white'>Saisissez le code fourni par le créateur de l'évènement que vous cherchez</p>
 
 
+   <form id='myForm' method='post' action='{{ path("searchEventPath")}}'>
+ 
+      <input id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
 
-<form id='myForm' method='post' action='{{ path("searchEventPath")}}'>
+      <input onclick='checkEvent(event)' type='submit' name='voir l'évènement' value='voir'>
 
-<input id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
+  </form>
 
+ <span id='errorMsg' style ='color:red'></span>
 
-
-<input onclick='checkEvent(event)' type='submit' name='voir l'évènement' value='voir'>
-
-
-</form>
-
-     <span id='errorMsg' style ='color:red'></span>
-
+</div>
 
 <br>
 
