@@ -18,14 +18,26 @@
 
    main{
 
-     height : 88vh;
-     
+     position: relative;
+
+     top: 10vh;
+
+
 
    }
 
 
+
+
+
    #myNav{
-     height: 12vh;
+
+     position: fixed;
+     height: 10vh;
+     width: 100vw;
+
+     z-index: 5;
+
    }
 
   
@@ -33,14 +45,23 @@
 
     #messageIcon{
 
+       z-index: 3;
+
+       
+       float:right;
+
        position: fixed;
 
-       z-index: 3;
+       top: 80vh;
+
+       left: 90vw;
+
+
 
 
       background: blue;
 
-      margin-left: 70vw;
+     
 
       height : 80px;
 
@@ -261,7 +282,6 @@
 
 <main>
 
-{% block body %}{% endblock %}
   
        
 
@@ -335,6 +355,10 @@
 
 
  {%endif%}
+
+
+ {% block body %}{% endblock %}
+
 
 
     </main>
