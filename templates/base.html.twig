@@ -168,47 +168,40 @@
 
             {% block stylesheets %}{% endblock %}
 
-    <div class="fixed-top">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
 
-      <a href= '{{ path("adminIndexPath")}}'><h5 class="text-white h4">Home</h5></a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href='{{ path("adminIndexPath")}}'>
+          <img style='height: 60px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
+        </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
 
-       {%if app.user%}
+              {%if app.user%}
 
-      <a href= '{{ path("showAllPendingTicketsPath")}}'><h5 class="text-white h4">Messages</h5></a>
+           <a href= '{{path("showAllPendingTicketsPath")}}'><button>Messages</button> <h3>{{ app.user.pinCount}}</h3></a>
 
-      <h3> {{ app.user.pinCount}} </h3>
-          
-          {%else%}
-
-            <a href= '{{ path("security_login")}} '><button>Connexion</button></a>
-
-
-          {%endif%}
-
-
-    </div>
-  </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-
-      {%if app.user%}
-
-           
            <a href= '{{ path("logoutPath")}} '><button>Déconnexion</button></a>
 
+           
+              {%else%}
 
-      {%else%}
-                 <a href= {{ path("seeCartPath") }}><button>Voir votre panier</button></a>
+          <a class="nav-link" href='{{ path("seeCartPath") }}'>
+             <i class="fas fa-2x fa-cart-arrow-down"></i>
+          </a>
+              {%endif%}
+        </li>
 
 
-            {%endif%}
-
-
-
-  </nav>
+      
+      </ul>
+    </div>
+  </div>
+</nav>
 </div>
 
 </br>
