@@ -11,20 +11,84 @@
 
 
 
-<form method='post' action='{{ path('security_login')}}'>
+<form id='myForm' method='post' action='{{ path('security_login')}}'>
 
 <label>Mail</label></br>
 
-<input type='text' class='form-control' required name='_username'></br>
+<input type='text' id='adminUserName' class='form-control' placeholder='E-mail'required name='_username' onkeyup='initErrorMsg()'></br>
 
 <label>Mot de passe</label></br>
 
-<input type='text' class='form-control' placeholder='Mot de passe' required name='_password'></br>
+<input id='adminPassWord' type='password' class='form-control' placeholder='Mot de passe' required name='_password' onkeyup='initErrorMsg()'></br>
 
-<button type='submit'>Connexion</button>
+<button type='submit' onclick='checkAdmin(event)'>Connexion</button>
 </form>
 
 
+<div style='color:red' id='errorMsg'></div>
 
-</div>
+
 {% endblock %}
+
+
+        {% block javascripts %}
+        
+    <script>
+
+    var adminUserName = document.getElementById('adminUserName');
+    var adminPassWord = document.getElementById('adminPassWord');;
+    
+    var myForm = document.getElementById('myForm');
+
+
+    function checkAdmin(event){
+
+          event.preventDefault();
+
+          xrq = new XMLHttpRequest();
+
+          xrq.onload = function(){
+
+
+             var validity = JSON.parse(this.responseText).validity;
+              console.log(validity);
+
+
+
+              if(validity == true){
+
+              myForm.submit();
+
+
+              } else if (validity == false){
+
+                 errorMsg.innerHTML = 'La combinaison identifiant/mot de passe est incorrecte';
+
+              }
+
+
+          }
+
+          xrq.open('POST', '{{ path("checkAdminPath") }}' , true);
+
+          xrq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+
+          xrq.send('username=' + adminUserName.value + '&password='+ adminPassWord.value );
+   
+    }
+
+
+
+    function initErrorMsg(){
+
+        document.getElementById('errorMsg').innerHTML = '';
+
+    }
+
+
+ </script>
+        
+        
+        {% endblock %}
+
+

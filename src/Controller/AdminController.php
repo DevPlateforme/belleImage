@@ -7,10 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
-
-use App\Entity\Admin;
 
 class AdminController extends AbstractController
 {
@@ -70,5 +71,43 @@ class AdminController extends AbstractController
 
     }
 
+
+    /**
+     * @Route("/checkAdmin", name="checkAdminPath")
+     */
+                
+
+    public function checkAdmin(UserPasswordEncoderInterface $encoder){
+
+        $validity = true;
+
+        $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+
+
+        if( isset($_POST["username"])){
+
+            if($admin->getMail() != $_POST["username"] ){
+                  
+                $validity = false;
+
+            }
+
+            if(($encoder->isPasswordValid($admin, $_POST["password"] ) ) == false){
+              
+                $validity = false;
+
+
+            };
+
     
+
+
+            return new JsonResponse(['validity' => $validity]);
+
+        }
+
+        return new JsonResponse(['error' => 'error']);
+
+}
+
 }
