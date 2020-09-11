@@ -20,7 +20,7 @@
 
      position: relative;
 
-     top: 10vh;
+     top: 15vh;
 
 
 
@@ -33,7 +33,7 @@
    #myNav{
 
      position: fixed;
-     height: 10vh;
+     height: 15vh;
      width: 100vw;
 
      z-index: 5;
@@ -59,7 +59,7 @@
 
 
 
-      background: blue;
+      background: #0049B7;
 
      
 
@@ -253,22 +253,27 @@
         </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+    
 
               {%if app.user%}
 
-           <a href= '{{path("showAllPendingTicketsPath")}}'><button>Messages</button> <h3>{{ app.user.pinCount}}</h3></a>
+                <li class="nav-item active">
+                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a><h3 style='color:red'>{{ app.user.pinCount}}</h3>
+              </li>
 
-           <a href= '{{ path("logoutPath")}} '><button>Déconnexion</button></a>
-
+             <li  class="nav-item active">
+                 <a href= '{{ path("logoutPath")}} '><i style='color:white' class="fas fa-2x fa-sign-out-alt"></i></a>
+             </li>
            
               {%else%}
-
+           
+          <li class="nav-item active">
           <a class="nav-link" href='{{ path("seeCartPath") }}'>
              <i class="fas fa-2x fa-cart-arrow-down"></i>
           </a>
+                </li>
               {%endif%}
-        </li>
+  
 
 
       
@@ -336,7 +341,7 @@
 
             <input placeholder = 'Saissez votre message' id= 'messageInput' type = 'text' name = 'ticketMessage'></br>
 
-            <input id='messageButton' type='submit' id='ticketSubmit' onclick='sendTicket(event)'> 
+            <button id='messageButton' type='submit' id='ticketSubmit' onclick='sendTicket(event)'>&#x279C</button>
 
        </div>
 

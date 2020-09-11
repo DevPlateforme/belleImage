@@ -421,14 +421,15 @@ class EventController extends AbstractController
             $eventSeen = $request->cookies->get('eventCookie');
 
            }
+
+           $cartArray = [];
+
         if ($request->cookies->get('cart') != null){
 
             $cart = $request->cookies->get('cart');
 
             $cart = explode(',' , $cart);
 
-            $cartArray = [];
-            
             foreach($cart as $imageId){
 
                 $repo = $this->getDoctrine()->getRepository(Image::class);
@@ -439,13 +440,27 @@ class EventController extends AbstractController
                 $cartArray[] = $img;
 
             }
+        
+        
+        }
+
+        if( empty($cartArray) == false){
 
             return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => $cartArray, 'cartValue' => 5*count($cart)]);
 
 
+        } else if ( empty($cartArray) == true){
+
+
+            return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => null, 'cartValue' => null]);
+
+
+
         }
+
+
+
         
-        return $this->render('cart/checkout.html.twig', ['eventSeen' => $eventSeen , 'cart' => null, 'cartValue' => null]);
 
 
 

@@ -24,20 +24,24 @@
           <a href = '{{ path("clearCartPath") }}'><button>Vider le panier</button></a>
 
              <h2> Le prix à régler pour votre panier est de {{cartValue}} euros </h2>
-
+            
 
              {%for image in cart %}
+
+              {%if image.assetSrc is defined %}
 
 
              <img src="{{ asset(image.assetSrc) }}" alt="myflag">
 
+             {%else%} 
 
-              <script>
+             <h2 style='color:red'>Certains article ne peuvent pas être affiché, car ils ont sûrement été retirés de la vente par l'administrateur, veuillez s'il vous plait vider votre panier, et renouveler l'opération.</h2>
 
-              console.log({{image.id}});
 
-              </script>
 
+
+
+              {%endif%}
               {%endfor%}
 
               <br><br>

@@ -47,17 +47,47 @@
     margin-right: 10px;   
 }
 
+#leftMarginContainer{
+
+    position: fixed;
+
+
+    height: 100vh;
+
+    width: 20vw;
+
+
+}
+
+
+#pendingMsgsLink{
+
+    background: red;
+
+    border-radius: 30px;
+
+
+
+}
+
+#doneMsgsLink{
+
+
+}
+
 </style>
 
 
+<div id='leftMarginContainer'>
 
 
-<a href='{{ path("showAllPendingTicketsPath") }}'><button>Messages non traités</button> <br>
+<a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><h4>Messages non traités</h4></div> <br></a>
 
 
-<a href='{{ path("showAllDoneTicketsPath") }}'><button>Messages traités</button> <br>
+<a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink'><h4>Messages traités</h4><br> </div></a>
 
 
+</div>
 
 
    <h1Voici tous vos tickets en attente</h1>
