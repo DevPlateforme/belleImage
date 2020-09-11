@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TicketController!{% endblock %}
+
+{% block body %}
+<style>
+
+
+.totalBgContainer{
+
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: flex-start;
+
+    
+
+}
+
+#leftMarginContainer{
+
+    position: fixed;
+
+
+    height: 100vh;
+
+    width: 20%;
+
+}
+
+
+.bgContainer{
+    
+   
+    width : 80%;
+
+    height : 100vh;    
+
+    display: flex;
+
+    margin-left: 20%;
+
+    justify-content: flex-start;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    
+
+}
+
+
+.ticketContainer{
+      height: 50px;
+      width: 80%;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      flex-direction: row;
+
+
+      border: solid;
+
+      border-radius: 17px;
+
+      margin-left: 3vw;
+}
+
+
+
+
+
+.messageContent{
+    
+    border: solid;
+
+    border-radius: 0px 20px 20px 20px;
+
+    height: 20%;
+
+    width: 80%;
+
+    float: right; 
+
+    margin-right: 10px;   
+}
+
+
+
+#pendingMsgsLink{
+
+
+    border-radius: 30px;
+
+
+
+}
+
+#doneMsgsLink{
+
+
+}
+
+</style>
+
+
+<div class='totalBgContainer'>
+
+     <div id='leftMarginContainer'>
+
+         <a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><h4>Messages non traités</h4></div> <br></a>
+
+        <a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink'><h4>Messages traités</h4><br> </div></a>
+
+     </div>
+
+
+     
+    <div class='bgContainer'>
+
+    
+    
+    <h1Voici tous vos tickets en attente</h1>
+ 
+
+    {% for ticket in tickets %}
+    
+    
+       <div class = 'ticketContainer'style='overflow:hidden'>
+
+         <div style='width:90%'>
+
+                <a style='width:100%' id='messageLink' href='{{ path("showOneTicketsPath", {"ticketId": ticket.id} ) }}'>
+                    <div style='display:flex; flex-direction: row; justify-content: space-around'>
+                        <div style='width:20%;'> <p>{{ ticket.username}}</p> </div>
+                        <div style='width:800px'> <p> {{ ticket.content }}</p> </div>
+                    </div>
+                </a>
+           </div>
+        
+          <div style='width:10%' >
+                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><h3>X</h3 ></a> 
+          </div>
+
+         </div>
+
+ 
+            {%endfor%}
+
+
+
+
+
+ </div>
+
+    
+</div>
+
+
+
+
+
+
+   {% endblock %}
+
+
+
+{% block javascripts %}
+
+
+<script>
+
+
+
+
+</script>
+
+{% endblock %}

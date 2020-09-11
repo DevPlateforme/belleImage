@@ -76,7 +76,7 @@ class TicketController extends AbstractController
         );
       
 
-        return $this->render('ticket/showallPending.html.twig', ['tickets' => $tickets]);
+        return $this->render('ticket/showall.html.twig', ['tickets' => $tickets]);
 
 
     }
@@ -105,6 +105,27 @@ class TicketController extends AbstractController
     }
 
 
+        
+    /**
+     * @Route("/ticket/show/one/{ticketId}", name="showOneTicketsPath")
+     */
+
+
+    public function showOneTicket(EntityManagerInterface $manager, $ticketId){
+        
+
+        $repo = $this->getDoctrine()->getRepository(Ticket::class);
+
+        $ticket = $repo->find($ticketId);
+
+
+              
+        return $this->render('ticket/showOneTicket.html.twig', ['ticket' => $ticket]);
+
+
+    }
+
+
 
     /**
      * @Route("/ticket/setToDone/{ticketId}", name="setTicketToDonePath")
@@ -121,7 +142,7 @@ class TicketController extends AbstractController
         $manager->flush();
 
 
-       return $this->redirectToRoute('showAllPendingTicketsPath');
+       return $this->redirectToRoute('showAllDoneTicketsPath');
 
     }
 
