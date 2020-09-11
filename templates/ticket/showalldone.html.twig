@@ -6,31 +6,78 @@
 <style>
 
 
-.bgContainer{
+.totalBgContainer{
 
-    width : 95vw;
 
-    height : 100vh;
+    width: 100%;
+
+    height: 100%;
 
     display: flex;
 
-    justify-content: center;
+    flex-direction: row;
+
+    justify-content: flex-start;
+
+    
+
+}
+
+#leftMarginContainer{
+
+    position: fixed;
+
+
+    height: 100vh;
+
+    width: 20%;
+
+}
+
+
+.bgContainer{
+    
+   
+    width : 80%;
+
+    height : 100vh;    
+
+    display: flex;
+
+    margin-left: 20%;
+
+    justify-content: flex-start;
 
     flex-direction: column;
 
     align-items: center;
+
+    
+
 }
 
+
 .ticketContainer{
-      height: 500px;
-      width: 50%;
+      height: 50px;
+      width: 80%;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      flex-direction: row;
+
 
       border: solid;
 
-      border-radius: 20px;
+      border-radius: 17px;
 
       margin-left: 3vw;
 }
+
+
+
+
 
 .messageContent{
     
@@ -48,81 +95,93 @@
 }
 
 
-#leftMarginContainer{
 
-    position: fixed;
+#pendingMsgsLink{
 
 
-    height: 100vh;
+    border-radius: 30px;
 
-    width: 20vw;
 
 
 }
-
 
 #doneMsgsLink{
 
-    background: red;
 
-    border-radius: 30px;
 }
-
 
 </style>
 
-  
-<div id='leftMarginContainer'>
+
+<div class='totalBgContainer'>
+
+     <div id='leftMarginContainer'>
+
+         <a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><h4>Messages non traités</h4></div> <br></a>
+
+        <a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink'><h4>Messages traités</h4><br> </div></a>
+
+     </div>
 
 
-<a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><h4>Messages non traités</h4></div> <br></a>
-
-
-<a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink'><h4>Messages traités</h4><br> </div></a>
-
-
-</div>
-
-
-   <h1Voici tous vos tickets en attente</h1>
-    
+     
     <div class='bgContainer'>
 
-
+    
+    
+    <h1Voici tous vos tickets en attente</h1>
  
 
     {% for ticket in tickets %}
+    
+    
+       <div class = 'ticketContainer'style='overflow:hidden'>
 
-           <div class = 'ticketContainer'>
+         <div style='width:90%'>
 
-                 <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><h1>X</h1></a>
-
-
-               Nom :   <h4>{{ ticket.username}}</h1><br>
-               Numéro de téléphone : <p>{{ ticket.foneNumber}}</p><br>
-               Statut : <p>traité</p><br>
-                        <div class='messageContent'>
-                          <p>{{ ticket.content}}</h1></p> </br>
-                        </div>
-                
-
-           <a href= '{{ path("setTicketToPendingPath", {"ticketId" : ticket.id} )}}'><button> Repasser le ticket en 'non traité'</button></a>
-
-
+                <a style='width:100%' id='messageLink' href='{{ path("showOneTicketsPath", {"ticketId": ticket.id} ) }}'>
+                    <div style='display:flex; flex-direction: row; justify-content: space-around'>
+                        <div style='width:20%;'> <p>{{ ticket.username}}</p> </div>
+                        <div style='width:800px'> <p> {{ ticket.content }}</p> </div>
+                    </div>
+                </a>
            </div>
-    
-           </br>
+        
+          <div style='width:10%' >
+                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><h3>X</h3 ></a> 
+          </div>
 
-      {%endfor%}
-    
-      </div>
+         </div>
 
-      
+ 
+            {%endfor%}
+
+
+
+
+
+ </div>
+
+    
+</div>
+
+
+
+
+
 
    {% endblock %}
 
 
 
 {% block javascripts %}
+
+
+<script>
+
+
+
+
+</script>
 
 {% endblock %}

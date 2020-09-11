@@ -62,9 +62,7 @@
 
 #pendingMsgsLink{
 
-    background: red;
 
-    border-radius: 30px;
 
 
 
@@ -107,8 +105,19 @@
                         <div class='messageContent'>
                           <p>{{ ticket.content}}</h1></p> </br>
                         </div>
-               <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button> Passer le ticket en 'fait'</button></a>
-           </div>
+
+                {% if ticket.status == 'done' %}
+
+               <a href= '{{ path("setTicketToPendingPath", {"ticketId" :  ticket.id} )}}' ><button> Repasser ce message en 'non traité'</button></a>
+                
+                {%else%}
+
+                <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button> Passer ce message en 'traité'</button></a>
+
+                 {%endif%}
+
+            
+             </div>
     
            </br>
 
