@@ -327,20 +327,32 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
            
-           <div style='width: 100px; display: flex; justify-content: space-between' >
 
               {%if app.user%}
 
-                <li class="nav-item active">
-                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a><h3 style='color:red'>{{ app.user.pinCount}}</h3>
+              <div style='width: 150px; display: flex; margin-top: 20px; justify-content: space-between' >
+
+
+
+                <li class="nav-item active" style='width: 200px; display:flex; justify-content: flex-start; flex-direction: row;'>
+                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a>
+                    
+                    <p id='pinHTML' style='color:white; background: red; border-radius: 20px; margin-top: 15px; display: flex; justify-content: center; height: 25px; width: 25px; '>{{ app.user.pinCount}}</p>
+
               </li>
 
              <li  class="nav-item active">
                  <a href= '{{ path("logoutPath")}} '><i style='color:white' class="fas fa-2x fa-sign-out-alt"></i></a>
              </li>
 
+             </div>
+
+                
+
            
               {%else%}
+
+            
            
           <li class="nav-item active">
           <a class="nav-link" href='{{ path("seeCartPath") }}'>
@@ -348,7 +360,6 @@
           </a>
                 </li>
               {%endif%}
-          </div>
   
 
 
@@ -445,6 +456,7 @@
 
 <script>
 
+var pinCount = document.getElementById('pinHTML');
 
 var messageIcon = document.getElementById('messageIcon');
 
@@ -533,6 +545,20 @@ function sendTicket(event){
   xrq.send("ticketMessage=" + messageInput.value + "&username=" + userName.value + "&ticketPhoneNumber=" + phoneInput.value + "&ticketMail=" + mailInput.value );
 }
 
+  {%if app.user%}
+
+
+
+     {% if app.user.pinCount == 0  %}
+
+           
+         pinCount.style.opacity = 0;
+
+
+
+     {% endif %}
+
+{%endif%}
 </script>
         {% block javascripts %}{% endblock %}
 
