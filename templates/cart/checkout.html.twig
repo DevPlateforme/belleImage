@@ -14,8 +14,6 @@
 
 
 
-   <h1>Votre Panier</h1>
-
 
      {% if cart != null%}
 
@@ -46,19 +44,55 @@
 
               <br><br>
 
+            
+                <a href='{{path("paymentPagePath") }}'><button>Payer</button></a>
+
+
 
 
       {% else %}
 
-        <h1>Vous n'avez aucun article</h1>
+        <style>
+          
+          #emptyCartDiv{
+            
+               display: flex;
 
+               flex-direction: column;
+
+               justify-content: center;
+
+               align-items: center;
+
+               height: 55vh;
+          }
+
+          #emptyCartHeader{
+
+            width: 30%;
+
+            display: flex;
+
+            justify-content: space-between;
+          }
+
+        </style>
+
+        <div id = 'emptyCartDiv'>
+           <div id= 'emptyCartHeader' >
+              <i style= 'margin-right: 1%' class="fas fa-2x fa-shopping-cart"></i>
+              <h5>Vous n'avez selectionné aucune photo</h5>
+            </div>
+
+            <p> Afin d'ajouter des photos, veuillez vous rendre sur un évènement, et séléctionner une ou plusieurs images.</p>
+        </div>
+ 
       {% endif %}
 
 
 
 
       
-      <a href='{{path("paymentPagePath") }}'><button>Payer</button></a>
 
      
      {% if eventSeen != null %} 

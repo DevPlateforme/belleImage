@@ -20,7 +20,7 @@
 
      position: relative;
 
-     top: 15vh;
+     top: 10vh;
 
    }
 
@@ -55,7 +55,7 @@
    #myNav{
 
      position: fixed;
-     height: 15vh;
+     height: 10vh;
      width: 100vw;
 
      z-index: 5;
@@ -330,15 +330,11 @@
 
               {%if app.user%}
 
-              <div style='width: 150px; display: flex; margin-top: 20px; justify-content: space-between' >
-
-
+              <div style='width: 150px; display: flex; margin-top: 20px;justify-content: space-between' >
 
                 <li class="nav-item active" style='width: 200px; display:flex; justify-content: flex-start; flex-direction: row;'>
-                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a>
-                    
-                    <p id='pinHTML' style='color:white; background: red; border-radius: 20px; margin-top: 15px; display: flex; justify-content: center; height: 25px; width: 25px; '>{{ app.user.pinCount}}</p>
-
+                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a> 
+                  <p id='pinHTML' style='color:white; background: red; border-radius: 20px; margin-top: 15px; display: flex; justify-content: center; height: 25px; width: 25px; '>{{ app.user.pinCount}}</p>
               </li>
 
              <li  class="nav-item active">
