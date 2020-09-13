@@ -6,31 +6,86 @@
 <style>
 
 
+
+
+.totalBgContainer{
+
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+#leftMarginContainer{
+
+    z-index: 4;
+   
+    position:fixed;
+
+    height: 100vh;
+
+    width: 5vw;
+    
+    background: purple;
+    
+    overflow: hidden;
+
+}
+
+
 .bgContainer{
 
-    width : 95vw;
+    position:absolute;
 
-    height : 100vh;
+    
+    width : 95%;
+
+    height : 100vh;    
 
     display: flex;
 
-    justify-content: center;
+
+    justify-content: flex-start;
+
+    align-item: flex-start;
 
     flex-direction: column;
 
-    align-items: center;
+    margin-left: 5vw;
+
+    
+    
+
 }
 
-.ticketContainer{
-      height: 500px;
-      width: 50%;
 
-      border: solid;
+  .ticketContainer{
 
-      border-radius: 20px;
+      height: 50px;
+      width: 100%;
 
-      margin-left: 3vw;
+      display: flex;
+
+      justify-content: space-between;
+
+      flex-direction: row;
+
+
+  
+      border: none;
+      
+      border-bottom: 1.5px solid;
+
+
+
+
+
 }
+
+
+
+
 
 .messageContent{
     
@@ -47,96 +102,143 @@
     margin-right: 10px;   
 }
 
-#leftMarginContainer{
-
-    position: fixed;
-
-
-    height: 100vh;
-
-    width: 20vw;
-
-
-}
 
 
 #pendingMsgsLink{
 
+    position: fixed;
 
+    display: flex;
 
+    justify-content: flex-start;
 
+    align-items: center;
+
+    margin-top: 2vh;
+
+    margin-left: 1vw;
 
 }
 
 #doneMsgsLink{
 
+    position: fixed;
 
+    display: flex;
+
+    justify-content: flex-start;
+
+    align-items: center;
+
+     margin-top: 8vh;
+
+     margin-left: 1vw;
+
+
+
+
+}
+
+
+#leftMarginContainer:hover{
+
+
+    width: 20%;
+
+}
+
+
+#leftMarginContainer:hover #undoneMessages { opacity: 1;}
+
+#leftMarginContainer:hover #doneMessages { opacity: 1;}
+
+
+
+
+#undoneMessages{
+
+    opacity: 0;
+
+    margin-left: 2vw;
+}
+
+#doneMessages{
+    opacity: 0;
+    margin-left: 2vw;
+}
+
+
+#ticketContent{
+  margin-left: 1.5vw;
+
+  padding-right: 2vw;
 }
 
 </style>
 
 
-<div id='leftMarginContainer'>
 
 
-<a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><h4>Messages non traités</h4></div> <br></a>
+     <div id='leftMarginContainer'  >
+     
+        <a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><i class="fas fa-2x fa-envelope"></i><h5 id='undoneMessages'>Messages recus</h5></div> <br></a>
+
+        <a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink' ><i class="fas fa-2x fa-archive"></i><h5  id='doneMessages'>Messages traités</h5></div></a>
+
+     </div>
 
 
-<a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink'><h4>Messages traités</h4><br> </div></a>
+
+<div class='totalBgContainer'>
 
 
-</div>
-
-
-   <h1Voici tous vos tickets en attente</h1>
-    
+     
     <div class='bgContainer'>
+
+    
+    <h1> Message de : {{ticket.username}}</h1>
+ 
+    
+    
+       <div class = 'ticketContainer'style='overflow:hidden'>
+
+         <div style='width:90%'>
+
+                    <div style='display:flex; flex-direction: row; justify-content: space-around; color:black'>
+                        <h5>Mail: </h5><div style='width:20%;'><h5>{{ ticket.mail}}</h5> </div>
+                        <div style='width:800px'><h5>Numéro: {{ ticket.foneNumber}} </h5></div>
+                    </div>
+              
+           </div>
+        
+          <div style='width:10%' >
+                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
+          </div>
+
+         </div>
+
+
+         <div id='ticketContent'>
+
+          {{ ticket.content }}
+         
+
+         </div>
 
  
 
 
-           <div class = 'ticketContainer'>
-
-                           <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><h1>X</h1></a>
-
-               Nom :   <h4>{{ ticket.username}}</h1><br>
-               Numéro de téléphone : <p>{{ ticket.foneNumber}}</p><br>
-
-               <i style='color:#990b14' class="fas fa-4x fa-user"></i>
-
-                 </br>
-                 </br>
-               
-                 
-                        <div class='messageContent'>
-                          <p>{{ ticket.content}}</h1></p> </br>
-                        </div>
-
-                        </br>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
 
 
-                {% if ticket.status == 'done' %}
-
-               <a href= '{{ path("setTicketToPendingPath", {"ticketId" :  ticket.id} )}}' ><button> Repasser ce message en 'non traité'</button></a>
-                
-                {%else%}
-
-                <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button class= 'btn btn-success'> Passer ce message en 'traité'</button></a>
-
-                 {%endif%}
-
-            
-             </div>
-    
-           </br>
+ </div>
 
     
-      </div>
+</div>
+
+
+
+
+
 
    {% endblock %}
 
@@ -148,6 +250,16 @@
 <script>
 
 
+var leftMarginContainer = document.getElementById('leftMarginContainer');
+
+leftMarginContainer.addEventListener('mouseover', overOn();
+
+);
+
+function overOn(){
+ leftMarginContainer.style.width = 20px;
+
+}
 
 
 </script>

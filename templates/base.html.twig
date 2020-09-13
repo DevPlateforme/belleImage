@@ -448,11 +448,18 @@ var messageIcon = document.getElementById('messageIcon');
 
 var messageBox = document.getElementById('messageBox');
 
-var messageInput = document.getElementById('messageInput');
 
 var messageSentDiv = document.getElementById('messageSentDiv');
 
+
 var userName = document.getElementById('userName');
+
+var mailInput = document.getElementById('mailInput');
+
+var phoneInput = document.getElementById('phoneInput'); 
+
+var messageInput = document.getElementById('messageInput');
+
 
 
 function closeMessageSentNotif(){
@@ -507,8 +514,6 @@ function sendTicket(event){
 
     document.getElementById('mailInput').value = '';
 
-     mailInput
-
 
 
 
@@ -520,7 +525,7 @@ function sendTicket(event){
    xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
 
-  xrq.send("ticketMessage=" + messageInput.value + "&username=" + userName.value + "&ticketPhoneNumber=" + messageInput.value + "&ticketMail=" + messageInput.value );
+  xrq.send("ticketMessage=" + messageInput.value + "&username=" + userName.value + "&ticketPhoneNumber=" + phoneInput.value + "&ticketMail=" + mailInput.value );
 }
 
 </script>

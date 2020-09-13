@@ -23,6 +23,8 @@
    
     position:fixed;
 
+    z-index: 4;
+
     height: 100vh;
 
     width: 5vw;
@@ -76,6 +78,8 @@
       border: none;
       
       border-bottom: 1.5px solid;
+
+
 
 
 
@@ -140,7 +144,6 @@
 
 #leftMarginContainer:hover{
 
-    background:purple;
 
     width: 20%;
 
@@ -202,16 +205,16 @@
 
          <div style='width:90%'>
 
-                <a style='width:100%' id='messageLink' href='{{ path("showOneTicketsPath", {"ticketId": ticket.id} ) }}'>
-                    <div style='display:flex; flex-direction: row; justify-content: space-around'>
-                        <div style='width:20%;'> <p>{{ ticket.username}}</p> </div>
+                <a style='width:100%; text-decoration: none; color: grey;' id='messageLink' href='{{ path("showOneTicketsPath", {"ticketId": ticket.id} ) }}'>
+                    <div style='display:flex; flex-direction: row; justify-content: space-around; color:black'>
+                        <div style='width:20%;'> <p> {{ ticket.username}}</p> </div>
                         <div style='width:800px'> <p> {{ ticket.content }}</p> </div>
                     </div>
                 </a>
            </div>
         
           <div style='width:10%' >
-                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><h3>X</h3 ></a> 
+                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
           </div>
 
          </div>
@@ -242,6 +245,17 @@
 
 <script>
 
+
+var leftMarginContainer = document.getElementById('leftMarginContainer');
+
+leftMarginContainer.addEventListener('mouseover', overOn();
+
+);
+
+function overOn(){
+ leftMarginContainer.style.width = 20px;
+
+}
 
 
 </script>
