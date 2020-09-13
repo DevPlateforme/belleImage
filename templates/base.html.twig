@@ -326,7 +326,8 @@
         </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-    
+           
+           <div style='width: 100px; display: flex; justify-content: space-between' >
 
               {%if app.user%}
 
@@ -337,6 +338,7 @@
              <li  class="nav-item active">
                  <a href= '{{ path("logoutPath")}} '><i style='color:white' class="fas fa-2x fa-sign-out-alt"></i></a>
              </li>
+
            
               {%else%}
            
@@ -346,6 +348,7 @@
           </a>
                 </li>
               {%endif%}
+          </div>
   
 
 
