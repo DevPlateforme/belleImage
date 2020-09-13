@@ -398,7 +398,7 @@
 
       <div id='messageContent'>
 
-            <textarea placeholder = 'Saissez votre message' id= 'messageInput' type = 'text' name = 'ticketMessage'></textarea></br>
+            <textarea maxlength="4000" placeholder = 'Saissez votre message' id= 'messageInput' type = 'text' name = 'ticketMessage'></textarea></br>
 
        </div>
 
@@ -499,6 +499,8 @@ function sendTicket(event){
   var xrq = new XMLHttpRequest();
 
   xrq.onload = function(){
+
+    console.log(JSON.parse(this.responseText).content);
 
     messageSentDiv.innerHTML ="Votre message a bien été recu!! Nous vous recontacterons dans les plus brefs délais!! <button onclick='closeMessageSentNotif()'>X</button>"
     

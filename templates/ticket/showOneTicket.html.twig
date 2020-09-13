@@ -174,12 +174,27 @@
   padding-right: 2vw;
 }
 
+
+#buttonDiv{
+
+  margin-top: 3vh;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: flex-start;
+
+
+  padding-left: 2vw;
+}
+
 </style>
 
 
 
 
-     <div id='leftMarginContainer'  >
+     <div id='leftMarginContainer'>
      
         <a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><i class="fas fa-2x fa-envelope"></i><h5 id='undoneMessages'>Messages recus</h5></div> <br></a>
 
@@ -189,7 +204,7 @@
 
 
 
-<div class='totalBgContainer'>
+   <div class='totalBgContainer'>
 
 
      
@@ -223,6 +238,11 @@
           {{ ticket.content }}
          
 
+         </div>
+
+
+         <div id='buttonDiv'>
+             <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button class= 'btn btn-success'> Passer ce message en 'traité'</button></a>
          </div>
 
  
