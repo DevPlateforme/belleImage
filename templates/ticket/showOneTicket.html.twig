@@ -101,10 +101,24 @@
 
                Nom :   <h4>{{ ticket.username}}</h1><br>
                Numéro de téléphone : <p>{{ ticket.foneNumber}}</p><br>
-               Statut : <p>Non traité</p><br>
+
+               <i style='color:#990b14' class="fas fa-4x fa-user"></i>
+
+                 </br>
+                 </br>
+               
+                 
                         <div class='messageContent'>
                           <p>{{ ticket.content}}</h1></p> </br>
                         </div>
+
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+
 
                 {% if ticket.status == 'done' %}
 
@@ -112,7 +126,7 @@
                 
                 {%else%}
 
-                <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button> Passer ce message en 'traité'</button></a>
+                <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button class= 'btn btn-success'> Passer ce message en 'traité'</button></a>
 
                  {%endif%}
 

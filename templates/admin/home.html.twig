@@ -39,7 +39,7 @@
 
    <form id='myForm' method='post' action='{{ path("searchEventPath")}}'>
  
-      <input id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
+      <input style='outline:none' id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
 
       <input onclick='checkEvent(event)' type='submit' name='voir l'évènement' value='voir'>
 
