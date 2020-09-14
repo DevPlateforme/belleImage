@@ -62,6 +62,26 @@
 }
 
 
+
+  .myHeader{
+
+      height: 10vh;
+      width: 100%;
+
+      border-bottom: 1.5px solid;
+
+
+      display: flex;
+
+      justify- content: flex-start;
+
+
+
+
+     
+
+
+}
   .ticketContainer{
 
       height: 50px;
@@ -71,19 +91,18 @@
 
       justify-content: space-between;
 
+      align-items: center;
+
       flex-direction: row;
-
-
   
       border: none;
       
       border-bottom: 1.5px solid;
 
 
-
-
-
 }
+
+
 
 
 
@@ -194,10 +213,24 @@
      
     <div class='bgContainer'>
 
+    <div  class = 'myHeader'>
+
+      <div style='width:90%; display: flex; flex-direction: row; align-items: flex-end; margin-left: 20px'>
+
+                        <div style='width:30%;'> <p>Utilisateur</p> </div>
+                        <div style='width:52%'> <p>Message</p></div>
+                        <div style='width: 10%'> <p>Date</p> </div>
+           </div>
+        
+          <div style='width:10%; height: 100%;display:flex; align-items: center; justify-content: center;padding-bottom: 10px;' >
+                   
+          </div>
+
+
+    </div>
+
     
     
-    <h1Voici tous vos tickets en attente</h1>
- 
 
     {% for ticket in tickets %}
     
@@ -209,12 +242,13 @@
                 <a style='width:100%; text-decoration: none; color: grey;' id='messageLink' href='{{ path("showOneTicketsPath", {"ticketId": ticket.id, "comingFrom": "pending"} ) }}'>
                     <div style='display:flex; flex-direction: row; justify-content: space-around; color:black'>
                         <div style='width:20%;'> <p> {{ ticket.username}}</p> </div>
-                        <div style='width:800px'> <p> {{ ticket.content }}</p> </div>
+                        <div style='width:40%'> <p> {{ ticket.content }}</p> </div>
+                        <div style='width: 10%'> <p> {{ ticket.date|date('d-m') }}</p> </div>
                     </div>
                 </a>
            </div>
         
-          <div style='width:10%' >
+          <div style='width:10%; height: 100%;display:flex; align-items: center; justify-content: center;padding-bottom: 10px;' >
                   <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
           </div>
 

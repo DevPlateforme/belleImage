@@ -180,7 +180,7 @@
 
 
 #ticketContent{
-  margin-left: 1.5vw;
+  margin-left: 3.7vw;
 
   padding-right: 2vw;
 }
@@ -224,15 +224,15 @@
     <div class='bgContainer'>
 
     
-    <h1> Message de : {{ticket.username}}</h1>
+    <h1 style='margin-left: 3.5vw; margin-top: 15px'> Message de : {{ticket.username}}</h1>
  
     
     
-       <div class = 'ticketContainer'style='overflow:hidden'>
+       <div class = 'ticketContainer'style='overflow:hidden;'>
 
          <div style='width:90%'>
 
-                    <div style='display:flex; flex-direction: row; justify-content: space-around; color:black'>
+                    <div style='display:flex; flex-direction: row; justify-content: space-around; color:black; margin-left: 3.5vw'>
                         <h5>Mail: </h5><div style='width:20%;'><h5>{{ ticket.mail}}</h5> </div>
                         <div style='width:800px'><h5>Numéro: {{ ticket.foneNumber}} </h5></div>
                     </div>
@@ -246,7 +246,7 @@
          </div>
 
 
-         <div id='ticketContent'>
+         <div id='ticketContent' >
 
           {{ ticket.content }}
          
