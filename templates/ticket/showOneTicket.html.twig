@@ -254,9 +254,20 @@
          </div>
 
 
+         {% if ticket.status == 'pending' %}
+
+
          <div id='buttonDiv'>
              <a href= '{{ path("setTicketToDonePath", {"ticketId" :  ticket.id} )}}' ><button class= 'btn btn-success'> Passer ce message en 'traité'</button></a>
          </div>
+
+         {%elseif ticket.status == 'done' %}
+           
+         <div id='buttonDiv'>
+             <a href= '{{ path("setTicketToPendingPath", {"ticketId" :  ticket.id} )}}' ><button class= 'btn btn-success'> Repasser ce message en 'non traité'</button></a>
+         </div>
+
+         {%endif%}
 
  
 

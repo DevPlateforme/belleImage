@@ -5,7 +5,40 @@
 {% block body %}
 <style>
 
+   #myHeader{
 
+      background:red; 
+      
+      height: 100px;
+
+       width: 100vw;
+
+       display: flex;
+
+       flex-direction:column;
+
+       align-items: center;
+      
+
+      
+   }
+
+   #eventNavBar{
+
+      width:100vw; 
+      display:flex; 
+      justify-content:center; 
+      align-items: center; 
+      z-index:8;
+
+
+
+     
+
+      background: red;
+
+      
+   }
    
    #myContainer{
 
@@ -18,13 +51,9 @@
 
      	display: grid;
 
-
-   grid-auto-columns: minmax(100px, auto);
+     grid-auto-columns: minmax(100px, auto);
 
      margin-left :5%;
-
-
-     flex-direction : row;
 
     }
 
@@ -40,8 +69,7 @@
       display :flex;
 
       z-index: 1;
-
-
+     
 
       justify-content: center;
 
@@ -51,7 +79,7 @@
 
     z-index: 1;
 
-    width : 330px;
+    width : 700px;
 
     object-fit:contain;
 
@@ -73,7 +101,7 @@
 
        border-radius: 30px;
 
-       font-size: 10px;
+       font-size: 40px;
 
        
     }
@@ -88,9 +116,9 @@
 
        background: #0074D9;
 
-          display: flex;
-    align-items: center;
-    justify-content: center; 
+       display: flex;
+       align-items: center;
+       justify-content: center; 
 
        color: white;
 
@@ -103,7 +131,7 @@
 
        z-index: 4;
 
-       top: 90vh;
+       top: 10vh;
 
        right: 80vw;
 
@@ -117,19 +145,58 @@
     }
 
 
+
+.imgText{
+
+  position: absolute;
+
+  top: 40%;
+
+  margin-right: 80px;
+
+  z-index: 6;
+
+  font-size: 100px;
+
+  opacity: 40%;
+}
+
     
 </style>
+ 
+ <div id='myHeader'>
+   
+   <div id='titleAndPres'>
+      <div>
+        <h1>{{event.name}}</h1>
+      </div>
 
-   <h1>{{event.name}}</h1>
+      <div>
+         <p>Evenement créé, présentation...</p>
+      </div>
+
+   </div>
+ 
+</div>
+
+ 
+ <div id='eventNavBar'>
+ 
+      <p>sélectionnez toutes les photo que vous souhaitez appuyant sur la <button>+</button> </p>
+ 
+      <a href="#top"><i class="fas fa-1x fa-arrow-up"></i></a>
+      
+   </div>
 
 
 
    <div id ='myContainer'></div>
 
 
+ 
   
      
-
+     
 
    {% if app.user %}
 
@@ -166,22 +233,7 @@
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
 </br>
 
 
@@ -208,7 +260,6 @@
 {%else%}
 
 
-
    <div id='addedImgMsg' style='color:blue'> Image ajoutée à votre  <i class="fas fa-1x fa-cart-arrow-down"></i> </div>
 
    {%endif%}
@@ -220,6 +271,20 @@
 
    <script>
 
+
+$(window).scroll(function(e){ 
+
+  var $el = $('#eventNavBar'); 
+
+
+  var isPositionFixed = ($el.css('position') == 'fixed');
+  if ($(this).scrollTop() > 105.31 && !isPositionFixed){ 
+    $el.css({'position': 'fixed', 'top': '10vh'}); 
+  }
+  if ($(this).scrollTop() < 105.31 && isPositionFixed){
+    $el.css({'position': 'static', 'top': '0px'}); 
+  } 
+});
 
 
 
@@ -233,6 +298,7 @@
          var src = {{ image.id }}
 
          console.log(src);
+
 
 
   var myContainer = document.getElementById('myContainer');
@@ -250,6 +316,8 @@
 
     myImg.src = "{{ asset(image.assetSrc) }}"
 
+   
+
 
     mydiv.append(myImg);
 
@@ -257,12 +325,17 @@
   mydiv.appendChild(mybutton);  
 
 
+var imgText =  document.createElement("h1");
+
+imgText.classList.add("imgText");
 
 
+imgText.innerHTML = 'BelleImage </br>';
 
-    
 
- myContainer.prepend(mydiv);
+  mydiv.appendChild(imgText);  
+
+  myContainer.prepend(mydiv);
 
 
 

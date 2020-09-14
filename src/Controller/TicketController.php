@@ -150,7 +150,6 @@ class TicketController extends AbstractController
        return $this->redirectToRoute('showAllDoneTicketsPath');
 
     }
-
     
     /**
      * @Route("/ticket/setToPending/{ticketId}", name="setTicketToPendingPath")
