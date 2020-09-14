@@ -25,29 +25,6 @@
    }
 
 
-   #seeEvent{
-
-     
-       position: fixed;
-
-       top: 80vh;
-
-       right: 90vw;
-
-   }
-
-   #createEvent{
-      
-     
-
-       position: fixed;
-
-       top: 80vh;
-
-       left: 90vw;
-
-
-   }
 
 
 
@@ -299,11 +276,6 @@
     margin-left:20%;
 }
 
-.eventLinks{
-
-  position: relative;
-  top: 500px;
-}
 
 
             {% block stylesheets %}{% endblock %}
@@ -330,7 +302,7 @@
 
               {%if app.user%}
 
-              <div style='width: 150px; display: flex; margin-top: 20px;justify-content: space-between' >
+              <div style='width: 150px; display: flex; margin-top: 20px;justify-content: space-between background:' >
 
                 <li class="nav-item active" style='width: 200px; display:flex; justify-content: flex-start; flex-direction: row;'>
                   <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a> 
@@ -340,6 +312,8 @@
              <li  class="nav-item active">
                  <a href= '{{ path("logoutPath")}} '><i style='color:white' class="fas fa-2x fa-sign-out-alt"></i></a>
              </li>
+
+             
 
              </div>
 
@@ -374,11 +348,6 @@
 
       {%if app.user%}
            
-           
-           <a href='{{path("showAllEventsPath")}}' ><button id='seeEvent' class='eventLinks'>voir vos évènements</button></a>
-
-           <a href='{{ path("newEventPath")}}'><button id='createEvent' class='eventLinks'>Créer un évènement</button></a>
-
       {%else%}
 
     <div id ='messageBox'>
@@ -442,15 +411,36 @@
  {% block body %}{% endblock %}
 
 
-
     </main>
 
 
+      {%if app.user%}
+
+   <footer>
+
+
+     <div style='position: fixed; top: 94vh; background:black; width: 100vw; height: 6vh; display: flex; justify-content: center; align-items: center ; padding-left: 1vw;  padding-right: 1vw;'>
+
+        <div style='width:5%; display:flex; justify-content: space-between;'>
+                     
+           <a style='text-decoration: none;' href='{{path("showAllEventsPath")}}'><i style='color:white' class="fas fa-1x fa-clipboard-list"></i></a>      
+          
+           <a style='text-decoration: none;' href='{{ path("newEventPath")}}'><i style='color:white' class="fas fa-1x fa-plus-circle"></i></a>
+          </div>
+
+
+      </div>
+
+  </footer>
+
+{%endif%}
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 <script>
+
+
 
 var pinCount = document.getElementById('pinHTML');
 

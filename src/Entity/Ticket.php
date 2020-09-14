@@ -42,6 +42,11 @@ class Ticket
      */
     private $status = 'pending';
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
 
     public function getId(): ?int
     {
@@ -104,6 +109,18 @@ class Ticket
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

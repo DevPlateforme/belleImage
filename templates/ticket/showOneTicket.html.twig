@@ -103,6 +103,16 @@
 }
 
 
+#arrowDiv{
+    position: fixed;
+
+    margin-top: 2vh;
+
+    margin-left: 1.3vw;
+
+}
+
+
 
 #pendingMsgsLink{
 
@@ -114,7 +124,7 @@
 
     align-items: center;
 
-    margin-top: 2vh;
+    top: 20vh;
 
     margin-left: 1vw;
 
@@ -130,11 +140,9 @@
 
     align-items: center;
 
-     margin-top: 8vh;
+     top: 30vh;
 
      margin-left: 1vw;
-
-
 
 
 }
@@ -148,9 +156,12 @@
 }
 
 
+#leftMarginContainer:hover #arrowDiv { margin-left: 8%;}
+
 #leftMarginContainer:hover #undoneMessages { opacity: 1;}
 
 #leftMarginContainer:hover #doneMessages { opacity: 1;}
+
 
 
 
@@ -185,17 +196,19 @@
 
   justify-content: flex-start;
 
-
   padding-left: 2vw;
 }
+
 
 </style>
 
 
-
-
      <div id='leftMarginContainer'>
-     
+        {%if comingFrom == 'pending' %}
+             <a href='{{ path("showAllPendingTicketsPath") }}'><div id='arrowDiv'><i class="fas fa-2x fa-arrow-left"></i></div> <br></a>
+        {%else%}
+             <a href='{{ path("showAllDoneTicketsPath") }}'><div id='arrowDiv'><i class="fas fa-2x fa-arrow-left"></i></div> <br></a>
+        {%endif%}
         <a href='{{ path("showAllPendingTicketsPath") }}'><div id='pendingMsgsLink'><i class="fas fa-2x fa-envelope"></i><h5 id='undoneMessages'>Messages recus</h5></div> <br></a>
 
         <a href='{{ path("showAllDoneTicketsPath") }}'><div id='doneMsgsLink' ><i class="fas fa-2x fa-archive"></i><h5  id='doneMessages'>Messages traités</h5></div></a>
@@ -275,11 +288,6 @@ var leftMarginContainer = document.getElementById('leftMarginContainer');
 leftMarginContainer.addEventListener('mouseover', overOn();
 
 );
-
-function overOn(){
- leftMarginContainer.style.width = 20px;
-
-}
 
 
 </script>

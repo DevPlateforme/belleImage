@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\TicketRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 
 
 class TicketController extends AbstractController
@@ -28,7 +30,7 @@ class TicketController extends AbstractController
             
             $admin->setPinCount($pinCount+1);
 
-
+            
 
 
              $ticket = new Ticket();
@@ -40,6 +42,8 @@ class TicketController extends AbstractController
              $ticket->setFoneNumber($_POST['ticketPhoneNumber']);
 
              $ticket->setMail($_POST['ticketMail']);
+
+             $ticket->setDate(new \DateTime());
 
              $manager->persist($ticket);
 
@@ -107,11 +111,11 @@ class TicketController extends AbstractController
 
         
     /**
-     * @Route("/ticket/show/one/{ticketId}", name="showOneTicketsPath")
+     * @Route("/ticket/show/one/{ticketId}/{comingFrom}", name="showOneTicketsPath")
      */
 
 
-    public function showOneTicket(EntityManagerInterface $manager, $ticketId){
+    public function showOneTicket(EntityManagerInterface $manager, $ticketId, $comingFrom){
         
 
         $repo = $this->getDoctrine()->getRepository(Ticket::class);
@@ -119,8 +123,9 @@ class TicketController extends AbstractController
         $ticket = $repo->find($ticketId);
 
 
+
               
-        return $this->render('ticket/showOneTicket.html.twig', ['ticket' => $ticket]);
+        return $this->render('ticket/showOneTicket.html.twig', ['ticket' => $ticket , 'comingFrom' => $comingFrom]);
 
 
     }
