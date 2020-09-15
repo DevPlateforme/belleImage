@@ -49,6 +49,11 @@ class Event
      */
     private $sameNameCount;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -148,6 +153,18 @@ class Event
     public function setSameNameCount(int $sameNameCount): self
     {
         $this->sameNameCount = $sameNameCount;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

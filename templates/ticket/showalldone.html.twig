@@ -19,6 +19,7 @@
 
 #leftMarginContainer{
 
+
    
     position:fixed;
 
@@ -28,9 +29,9 @@
 
     width: 5vw;
     
-    background: purple;
-    
     overflow: hidden;
+
+    background: black;
 
 }
 
@@ -54,9 +55,11 @@
     flex-direction: column;
 
     margin-left: 5vw;
-      
 
-  }
+    
+    
+
+}
 
 
 
@@ -67,10 +70,15 @@
 
       border-bottom: 1.5px solid;
 
+
       display: flex;
 
       justify- content: flex-start;
 
+
+
+
+     
 
 
 }
@@ -209,16 +217,14 @@
 
     <div  class = 'myHeader'>
 
-      <div style='width:90%; display: flex; flex-direction: row; align-items: flex-end; margin-left: 20px'>
+      <div style='width:90%; display: flex; flex-direction: row; align-items: center; justify-content: space-around'>
 
-                        <div style='width:30%;'> <p>Utilisateur</p> </div>
-                        <div style='width:52%'> <p>Message</p></div>
-                        <div style='width: 10%'> <p>Date</p> </div>
+                        <div style='width:20%;'><i class="fas fa-user"></i></div>
+                        <div style='width:40%;'> <i class="fas fa-envelope"></i></div>
+                        <div style='width: 10%'><i class="fas fa-calendar-week"></i> </div>
      </div>
         
-          <div style='width:10%; height: 100%;display:flex; align-items: center; justify-content: center;padding-bottom: 10px;' >
-                   
-          </div>
+    
 
 
     </div>
@@ -243,7 +249,7 @@
         </div>
         
         <div style='width:10%; height: 100%;display:flex; align-items: center; justify-content: center;padding-bottom: 10px;' >
-                  <a href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
+                  <a style='text-decoration: none' href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
         </div>
 
          </div>

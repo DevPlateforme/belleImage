@@ -6,26 +6,136 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    
+    #backgroundDiv{
+
+
+       height: 70vh;
+
+       display: flex;
+
+       flex-wrap: wrap;
+
+       padding-top: 10px;
+
+       padding-left: 18px;
+
+
+
+    }
+    
+    #eventDiv{
+       
+      margin-left: 15px;
+
+      margin-top: 7px;
+
+
+      width: 23vw;
+
+      height: 18vh;
+
+      border: solid 0.3px;
+
+      border-radius: 3px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: space-between;
+   
+   
+      }
+
+      #eventHeader{
+
+         height: 25%;
+
+         width: 100%;
+           
+           border-bottom: solid 1px;
+
+           display:flex;
+
+           justify-content: center;
+
+      }
+
+
+
+
+    #buttonsDiv{
+
+       display:flex;
+
+       justify-content: space-between;
+
+       width: 100%;
+
+       height: 35%;
+
+       padding: 5px;
+
+       
+
+    }
+
+    #seeEventButton{
+
+       height: 30px;
+
+       width: 60px;
+
+       font-size: 12px;
+    }
+
+    #date{
+       margin-right: 55px;
+    }
+
 </style>
 
 
- 
+
+
+ <div id = 'backgroundDiv'>
 
    {% for event in events %}
 
 
+   <div id='eventDiv'>
+   
+   <div id='eventHeader'>
+      <h5>{{event.name}}</h5> </br>
+   </div>
+   
+   <div id='buttonsDiv'>
+      <div>
+         <a href = '{{ path("showOneEventPath", { "eventId": event.id})  }}'><button id='seeEventButton' class='btn btn-success'>Voir</button></a> </br>
+      </div>
 
-   <h1>{{event.name}}</h1> </br>
+        
+      <div id='date'>
+          {{ event.date|date('d-m') }} 
+</br>
+      </div>
 
 
-   <a href = '{{ path("showOneEventPath", { "eventId": event.id})  }}'><button>Voir l'évènement</button></a> </br>
 
-      <a href = '{{ path("deleteEventPath", { "eventId": event.id})  }}'><button>Supprimer l'évènement</button></a> </br>
+      <div>
+        <a href = '{{ path("deleteEventPath", { "eventId": event.id})  }}'><i class="fas fa-trash"></i></a> </br>
+      </div>
+   </div>
 
 
+  </div>
 
     {%endfor%} 
 
+ </div>
 
    {% endblock %}
 

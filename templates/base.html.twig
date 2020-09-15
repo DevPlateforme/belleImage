@@ -37,6 +37,7 @@
 
      z-index: 5;
 
+
    }
 
   
@@ -490,6 +491,9 @@ function openMessageBox(){
 
    messageBox.style.opacity = 1;
 
+   messageBox.style.zIndex = 7;
+
+
 }
 
 
@@ -499,6 +503,8 @@ function closeMessageBox(){
     messageIcon.style.opacity = 1;
 
        messageBox.style.opacity = 0;
+
+      messageBox.style.zIndex = 1;
 
 
 }

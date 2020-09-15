@@ -19,6 +19,7 @@ use App\Entity\Image;
 use App\Entity\Stripe;
 use App\Repository\AdminRepository;
 use App\Repository\EventRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 
@@ -131,6 +132,9 @@ class EventController extends AbstractController
                 $event->setCode($_POST['eventCode']);
 
                 $event->setPath($this->getParameter('eventsDirectory'). $_POST['eventName']);
+
+                $event->setDate(new \DateTime());
+
 
                 $manager->persist($admin);
 
