@@ -157,7 +157,7 @@
 
     display: flex;
 
-    justify-content: center;
+    justify-content: space-between;
 
     flex-direction: row;
 
@@ -273,7 +273,18 @@
 
  #closeBoxLogo{
 
-    margin-left:20%;
+    margin-right: 5px;
+
+    margin-top: 5px;
+    
+     outline: none;
+
+     background: none;
+
+     border: none;
+
+     font-size: 15px;
+    
 }
 
 
@@ -352,9 +363,9 @@
 
     <div id ='messageBox'>
 
-      <div id='formTitle'>
-        <h4>Messagerie</h4>
-        <a  onclick='closeMessageBox()' style='justify-self: flex-end;'><button id='closeBoxLogo'>x</button></a>
+      <div id='formTitle' style='padding-left: 40px'>
+        <h4 style='margin: auto;'>Messagerie</h4>
+        <a  onclick='closeMessageBox()''><button id='closeBoxLogo'><i class="fas fa-times"></i></button></a>
      </div>
             
 
