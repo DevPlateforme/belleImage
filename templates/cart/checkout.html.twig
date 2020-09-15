@@ -6,9 +6,73 @@
 <style>
         img{
           
-          height : 150px;
+          width : 200px;
 
         }
+
+
+          #backgroundDiv{
+          
+          position: absolute;
+
+          top: 3vh;
+
+          width: 100vw;
+
+
+          display: flex;
+
+          justify-content: center;
+
+          align-items: start;
+        }
+
+
+        #paymentBox{
+
+          border: 0.5px solid;
+
+
+          width:25%; 
+          height:40%; 
+          
+          margin-left: 1vw;
+
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+
+          justify-content: space-around;
+
+
+        }
+
+        #paymentBox div{
+
+          width: 80%;
+
+
+        }
+
+          #amountToPay{
+
+          height: 40%;
+          width:100%;
+
+
+        }
+
+
+        #paymentButton{
+
+          height: 100%;
+
+          width: 100%;
+        }
+
+      
 
 </style>
 
@@ -17,19 +81,91 @@
 
      {% if cart != null%}
 
-          <h1>Voici votre panier</h1>
+     
+     
+          <div id='backgroundDiv'>
 
-          <a href = '{{ path("clearCartPath") }}'><button>Vider le panier</button></a>
+             <div style='width:38%; height:100%; margin-right: 12vw; display:flex;flex-direction:column; border: solid 1px;'>
 
-             <h2> Le prix à régler pour votre panier est de {{cartValue}} euros </h2>
+                   <div style='background: white; width: 100%; height: 30px; border-bottom: 0.1px solid; border-bottom-width:10vw%; display: flex; justify-content: space-between;'> 
+                         <div>
+                            <h5>Voici votre panier</h5>
+                        </div>
+
+                        <div >
+                            <p style='font-size: 12px'>Vos articles seront disposibles pendant 60 minutes</p>
+
+                        </div>
+                            
+                            
+                      </div>                 
+                  
+                 
+                    
+                       {%for image in cart %}
+
+                         {%if image.assetSrc is defined %}
+
             
+                        
+                     <div style='background: white; width:100%; padding: 10px; display:flex; flex-direction: row; align-items: center; justify-content: space-between; border-bottom: 0.5px solid'>
+                     
+                         <img src="{{ asset(image.assetSrc) }}" alt="myflag">
+
+                          <i style='color:green' class="fas fa-check"></i>
+                    </div>  
+                            
+                            {%endif%}
+
+                        {%endfor%} 
+                    
+                    
+                    
+                    
+             
+             </div>
+
+
+        <div id='paymentBox'; style='position: fixed; top:13vh; right: 8vw;'>
+
+           <div id='paymentTitle' style='width: 80%; height: 50px; border-bottom: 1.5px solid'>
+
+           <h4>TOTAL</h4>
+
+         </div>
+                  
+          <div id='amountToPay' style='display:flex; flex-direction: row; justify-content: space-between'>
+                  
+                <div >A régler: </div>
+
+                <div style='padding-left: 90px'>15 euros</div>
+                                        
+          </div>        
+
+          <div>
+              <a href='{{path("paymentPagePath") }}'><button class='btn btn-danger' id='paymentButton'>Payer</button></a>
+              </div>
+          </div>
+           
+                    
+          </div>
+
+         <div style='position:fixed; left: 3vw; top: 70vh'>
+
+          <a href = '{{ path("clearCartPath") }}'><i class="fas fa-2x fa-trash-alt"></i></a>
+         
+         </div>
+            
+
 
              {%for image in cart %}
 
               {%if image.assetSrc is defined %}
+             
 
 
-             <img src="{{ asset(image.assetSrc) }}" alt="myflag">
+
+
 
              {%else%} 
 
@@ -42,17 +178,19 @@
               {%endif%}
               {%endfor%}
 
+
               <br><br>
 
             
-                <a href='{{path("paymentPagePath") }}'><button>Payer</button></a>
-
 
 
 
       {% else %}
 
         <style>
+        
+
+    
           
           #emptyCartDiv{
             
@@ -77,6 +215,8 @@
           }
 
         </style>
+        
+        
 
         <div id = 'emptyCartDiv'>
            <div id= 'emptyCartHeader' >
@@ -86,10 +226,9 @@
 
             <p> Afin d'ajouter des photos, veuillez vous rendre sur un évènement, et séléctionner une ou plusieurs images.</p>
         </div>
+
  
       {% endif %}
-
-
 
 
       
@@ -97,7 +236,10 @@
      
      {% if eventSeen != null %} 
 
-     <a href = ' {{ path("showOneEventPath", { 'eventId' : eventSeen }) }}'><button>revenir à l'évènement</button></a>
+     <div style='position: fixed; top: 15vh; left: 3vw'>
+          <a href = ' {{ path("showOneEventPath", { 'eventId' : eventSeen }) }}'><i class="fas fa-2x fa-arrow-circle-left"></i></a>
+     </div>
+     
 
      {% endif %}
 
