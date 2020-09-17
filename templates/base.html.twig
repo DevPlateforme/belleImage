@@ -20,7 +20,7 @@
 
      position: relative;
 
-     top: 10vh;
+     top: 11.7vh;
 
    }
 
@@ -36,6 +36,8 @@
      width: 100vw;
 
      z-index: 5;
+
+     background: black;
 
 
    }
@@ -166,7 +168,11 @@
 
     }
 
+ textarea{
 
+  resize: none;
+
+ }
 
 
     #messageForm{
@@ -298,12 +304,10 @@
 
     </style>
 
-
-
-<nav id='myNav' class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<nav class="navbar navbar-light bg-white navbar-expand-lg fixed-top"">
   <div class="container">
     <a class="navbar-brand" href='{{ path("adminIndexPath")}}'>
-          <img style='height: 60px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
+          <img id='navLogo' style='height: 45px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
         </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -431,7 +435,7 @@
    <footer>
 
 
-     <div style='position: fixed; top: 94vh; background:black; width: 100vw; height: 6vh; display: flex; justify-content: center; align-items: center ; padding-left: 1vw;  padding-right: 1vw; z-index:5'>
+     <div style='position: fixed; top: 94vh; background:black; width: 100vw; height: 6vh; display: flex; justify-content: center; align-items: center ; padding-left: 1vw;  padding-right: 1vw; z-index:8'>
 
         <div style='width:5%; display:flex; justify-content: space-between;'>
                      

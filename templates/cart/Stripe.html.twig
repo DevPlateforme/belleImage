@@ -39,40 +39,119 @@
   background-color: #fefde5 !important;
 }
 
+#backgroundDiv{
+
+  height: 90vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+form{
+
+  width: 35vw;
+
+}
+
+#InsideFormDiv{
+  
+  background: blue;
+
+  display:flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  height: 235px;
+
+  width: 100%;
+
+}
+
+
+#creditCardDiv{
+
+  height: 50%;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+}
+
+#nameDiv{
+
+
+  height:50%;
+  width: 100%; 
+  
+  display:flex; 
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+
+
 </style>
  
 <script src="https://js.stripe.com/v3/"></script>
 
-<form action='{{ path("stripePaymentPath", {'imagesNumber': imagesNumber})}}' method="post" id="payment-form">
-  <div class="form-row">
+
+<div id='backgroundDiv'>
+
+  <div id='paymentForm'>
 
 
-    <label for="card-element">
-      Name
-    </label>
+  <form action='{{ path("stripePaymentPath", {'imagesNumber': imagesNumber})}}' method="post" id="payment-form">
+    <div class="form-row" id='InsideFormDiv'>
 
-    <input type="text" name="name">
+    <div id='nameDiv' >
+      <label>Vos informations</label>
 
-    <label for="card-element">
-      Mail
-    </label>
+      <input type="email" name="mail" placeholder='mail de réception des photographies achetées(important)'>
 
-    <input type="email" name="mail">
+      <input type="email" name="mail" placeholder='confirmation du mail'>
 
-    <label for="card-element">
-      Credit or debit card
-    </label>
-    <div id="card-element" class='container'>
-      <!-- A Stripe Element will be inserted here. -->
+
+
+      <input type="text" name="name" placeholder='nom/prénom'>
+
+   </div>
+
+    <div id='creditCardDiv' >
+
+       <label for="card-element">
+          Votre carte de crédit
+       </label>
+
+       <div id="card-element" class='container' style='width: 100%; border: solid none'>
+         <!-- A Stripe Element will be inserted here. -->
+       </div>
+
+       <!-- Used to display form errors. -->
+       <div id="card-errors" role="alert"></div>
+
+       <button class='btn btn-info' style='width:100%'>Submit Payment</button>
+
     </div>
 
-    <!-- Used to display form errors. -->
-    <div id="card-errors" role="alert"></div>
   </div>
+  </form>
 
-  <button>Submit Payment</button>
-</form>
-
+  </div>
+</div>
 {%endblock%}
 
 
