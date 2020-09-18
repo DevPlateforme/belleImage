@@ -20,27 +20,16 @@
 
      position: relative;
 
-     top: 11.7vh;
-
-   }
-
-
-
-
-
-
-   #myNav{
-
-     position: fixed;
-     height: 10vh;
-     width: 100vw;
-
-     z-index: 5;
-
-     background: black;
+     top: 7.3vh;
 
 
    }
+
+
+
+
+
+
 
   
 
@@ -295,66 +284,96 @@
 }
 
 
+  #myNavBar{
+    
+    position: fixed;
+    background: white;
 
-            {% block stylesheets %}{% endblock %}
+    z-index: 9;
+
+    top:0px;
+
+     height: 7.3vh;
+
+     width: 100vw;
+
+     display: flex;
+
+    justify-content: space-between;
+
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 
 
+  }
 
 
+#myNavBar div{
+
+    height: 100%;
+
+}
+
+#navItem1{
+
+      width: 8%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  margin-left: 15px;
+
+}
+
+        {% block stylesheets %}{% endblock %}
 
     </style>
 
-<nav class="navbar navbar-light bg-white navbar-expand-lg fixed-top"">
-  <div class="container">
-    <a class="navbar-brand" href='{{ path("adminIndexPath")}}'>
-          <img id='navLogo' style='height: 45px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
-        </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-           
+<div id='myNavBar'>
 
-              {%if app.user%}
+  <div id='navItem1'>
 
-              <div style='width: 150px; display: flex; margin-top: 20px;justify-content: space-between background:' >
-
-                <li class="nav-item active" style='width: 200px; display:flex; justify-content: flex-start; flex-direction: row;'>
-                  <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:white' class="fas  fa-2x fa-comment-alt"></i></a> 
-                  <p id='pinHTML' style='color:white; background: red; border-radius: 20px; margin-top: 15px; display: flex; justify-content: center; height: 25px; width: 25px; '>{{ app.user.pinCount}}</p>
-              </li>
-
-             <li  class="nav-item active">
-                 <a href= '{{ path("logoutPath")}} '><i style='color:white' class="fas fa-2x fa-sign-out-alt"></i></a>
-             </li>
-
-             
-
-             </div>
-
-                
-
-           
-              {%else%}
-
-            
-           
-          <li class="nav-item active">
-          <a class="nav-link" href='{{ path("seeCartPath") }}'>
-             <i class="fas fa-2x fa-cart-arrow-down"></i>
-          </a>
-                </li>
-              {%endif%}
-  
-
-
-      
-      </ul>
-    </div>
+   <a class="navbar-brand" href='{{ path("adminIndexPath")}}'>
+      <img id='navLogo' style='height: 45px ; width:auto' src='{{ asset("assets/img/belleLogo.png") }}' alt="logo Belle Image">
+  </a>
   </div>
-</nav>
 
+  {% if app.user %}
+
+    <div id='navItem2' style='margin-top: 5px; margin-right: 3vw; width: 12%; display: flex; justify-content: space-between;align-items: end'>
+
+    <div style =' display: flex; flex-direction:row ; width: 100%; '>
+    
+         <a href= '{{path("showAllPendingTicketsPath")}}'><i style='color:black' class="far fa-comment-alt fa-2x"></i></a> 
+    
+         <p id='pinHTML' style='color:white; background: red; border-radius: 20px; margin-top: 15px; display: flex; justify-content: center; height: 20px; width: 20px; font-size: 12px; padding-top: 0.8px; padding-right: 0.5px'>{{ app.user.pinCount}}</p>
+    
+    </div>
+
+     <div 'style= margin-top: 10px'><a href= '{{ path("logoutPath")}} '><i style='color:black' class="far fa-sign-out-alt fa-2x"></i></a></div>
+   
+   </div>
+   
+    {% else %}
+
+  <div id='navItem2' style=' margin-top: -3.2px; width: 6.5%;  margin-right: 1.5vw; display: flex; justify-content: center;align-items: center;'>
+
+     <div><a class="nav-link" href='{{ path("seeCartPath") }}'><i style='color:black' class="fas fa-2x fa-cart-arrow-down"></i></a></div>
+
+   {% endif %}
+   </div>
+
+
+  
+  
+  
+  </div>
+
+
+
+</div>
 
 
 <main>
@@ -418,7 +437,8 @@
 
   <a onclick='openMessageBox()'><div id='messageIcon'>
       <i id = 'messageBoxLogo' style='color:white' class="fas fa-comment-alt fa-3x"></i>
-  </div></a>
+ 
+ </div></a>
 
 
  {%endif%}
@@ -435,13 +455,13 @@
    <footer>
 
 
-     <div style='position: fixed; top: 94vh; background:black; width: 100vw; height: 6vh; display: flex; justify-content: center; align-items: center ; padding-left: 1vw;  padding-right: 1vw; z-index:8'>
+     <div style='position: fixed; top: 96vh; background:white ; black; width: 100vw; height: 4vh; display: flex; justify-content: center; align-items: center ; padding-left: 1vw;  padding-right: 1vw; z-index:8'>
 
         <div style='width:5%; display:flex; justify-content: space-between;'>
                      
-           <a style='text-decoration: none;' href='{{path("showAllEventsPath")}}'><i style='color:white' class="fas fa-1x fa-clipboard-list"></i></a>      
+           <a style='text-decoration: none;' href='{{path("showAllEventsPath")}}'><i style='color:black' class="fas fa-1x fa-clipboard-list"></i></a>      
           
-           <a style='text-decoration: none;' href='{{ path("newEventPath")}}'><i style='color:white' class="fas fa-1x fa-plus-circle"></i></a>
+           <a style='text-decoration: none;' href='{{ path("newEventPath")}}'><i style='color:black' class="fas fa-1x fa-plus-circle"></i></a>
           </div>
 
 

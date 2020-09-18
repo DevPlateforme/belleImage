@@ -13,6 +13,43 @@
         
 
     }
+
+
+
+    #mainDiv{
+
+      margin-left: 20vw;
+
+      margin-top: 15vh;
+      
+    }
+    
+
+    #eventCode{
+
+         width: 55vw;
+
+         height: 80px;
+
+         border-radius: 5px;
+
+         outline: none;
+
+         border: none;
+    }
+
+    #searchBtn{
+                 
+                 height: 80px;
+
+                 width: 50px;
+
+                 margin-top: -5px;
+
+    }
+
+
+     
          
 
 
@@ -32,7 +69,7 @@
 <h1 style='margin-left: 5vw; color:white'>Bienvenue dans l'espace de gestion de BelleImage</h1>
 {%else%}
 
-<div style=' margin-left: 20px;' >
+<div id='mainDiv'  >
 <h1 style='color:white'>Trouvez votre évènement</h1>
 
 <p style='color:white'>Saisissez le code fourni par le créateur de l'évènement que vous cherchez</p>
@@ -42,7 +79,7 @@
  
       <input style='outline:none' id='eventCode' type='text' name='eventCode' placeholder='Saisissez un code' onkeyup='initErrorMsg()'>
 
-      <input onclick='checkEvent(event)' type='submit' name='voir l'évènement' value='voir'>
+      <button id='searchBtn' class = 'btn btn-primary' onclick='checkEvent(event)' type='submit' name='voir l'évènement'><i class="fas fa-search"></i></button>
 
   </form>
 

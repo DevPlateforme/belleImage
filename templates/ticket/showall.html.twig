@@ -5,7 +5,12 @@
 {% block body %}
 <style>
 
+  #myNavBar{
 
+    
+    box-shadow: none;
+
+  }
 
 
 .totalBgContainer{
@@ -31,7 +36,10 @@
     
     overflow: hidden;
 
-    background: black;
+    background: white;
+
+     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+
 
 }
 
@@ -43,7 +51,6 @@
     
     width : 95%;
 
-    height : 100vh;    
 
     display: flex;
 
@@ -249,7 +256,7 @@
         </div>
         
         <div style='width:10%; height: 100%;display:flex; align-items: center; justify-content: center;padding-bottom: 10px;' >
-                  <a style='text-decoration: none' href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i class="fas fa-trash"></i></a> 
+                  <a style='text-decoration: none' href= '{{ path("deleteTicketPath", {"ticketId" :  ticket.id, "ticketStatus" : ticket.status} )}}'><i style='color:grey' class="fas fa-trash"></i></a> 
         </div>
 
          </div>

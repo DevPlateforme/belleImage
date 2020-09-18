@@ -4,6 +4,14 @@
 
 {% block body %}
 <style>
+
+
+
+        body{
+
+           background:#fcfcfc;
+         }
+
         img{
           
           width : 200px;
@@ -30,8 +38,9 @@
 
         #paymentBox{
 
-          border: 0.5px solid;
+          background: white;
 
+          box-shadow: 10px 10px 10px rgba(0, 1, 1, 0.28);
 
           width:25%; 
           height:40%; 
@@ -85,15 +94,15 @@
      
           <div id='backgroundDiv'>
 
-             <div style='width:38%; height:100%; margin-right: 12vw; display:flex;flex-direction:column; border: solid 1px;'>
+             <div style='width:38%; height:100%; margin-right: 12vw; display:flex;flex-direction:column; border-radius: 10px; box-shadow: 10px 10px 10px rgba(0, 1, 1, 0.28); background: white'>
 
-                   <div style='background: white; width: 100%; height: 30px; border-bottom: 0.1px solid; border-bottom-width:10vw%; display: flex; justify-content: space-between;'> 
+                   <div style='background: white; width: 100%; height: 30px;  border-bottom-width:10vw%; display: flex; justify-content: space-between; '> 
                          <div>
-                            <h5>Voici votre panier</h5>
+                         <p style='font-size: 20px'>Voici votre panier</p>
                         </div>
 
                         <div >
-                            <p style='font-size: 12px'>Vos articles seront disposibles pendant 60 minutes</p>
+                            <p style='font-size: 11px'>Ce panier sera supprimé dans 60 minutes <i class="far fa-clock"></i></p>
 
                         </div>
                             
@@ -108,7 +117,7 @@
 
             
                         
-                     <div style='background: white; width:100%; padding: 10px; display:flex; flex-direction: row; align-items: center; justify-content: space-between; border-bottom: 0.5px solid'>
+                     <div style='background: white; width:100%; padding: 10px; display:flex; flex-direction: row; align-items: center; justify-content: space-between; '>
                      
                          <img src="{{ asset(image.assetSrc) }}" alt="myflag">
 
@@ -128,7 +137,7 @@
 
         <div id='paymentBox'; style='position: fixed; top:13vh; right: 8vw;'>
 
-           <div id='paymentTitle' style='width: 80%; height: 50px; border-bottom: 1.5px solid'>
+           <div id='paymentTitle' style='width: 80%; height: 50px; border-bottom: 1px solid'>
 
            <h4>TOTAL</h4>
 
