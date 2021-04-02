@@ -120,7 +120,7 @@ class EventController extends AbstractController
 
            if(isset($_POST["eventName"])){
 
-                $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+                $admin = $this->getDoctrine()->getRepository(Admin::class)->find(3);
 
 
                 $events = $admin->getEvents();

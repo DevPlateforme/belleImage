@@ -49,7 +49,7 @@ class Admin implements UserInterface
     {
         $this->events = new ArrayCollection();
         $this->chats = new ArrayCollection();
-        $this->$pinCount = 0;
+        $this->pinCount = 0;
     }
 
     public function getId(): ?int

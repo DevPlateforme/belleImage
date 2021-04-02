@@ -27,24 +27,27 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/createadmin", name="createadminPath")
-     *
-    *public function createAdmin(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
-
-    *    $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
-
-    *    $hash = $encoder->encodePassword($admin, 'newton');
-        
-    *    $admin->setMail('claude@hotmail.fr');
-    *    $admin->setPassword($hash);
-
-    *    $manager->persist($admin);
-    *    $manager->flush();
-
-    *    return $this->render('admin/index.html.twig');
-
-    *}
+    */
     
-    **/
+    public function createAdmin(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+
+       //$admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+
+       $admin = new Admin();
+
+       $hash = $encoder->encodePassword($admin, 'newton');
+        
+        $admin->setMail('claude@hotmail.fr');
+        $admin->setPassword($hash);
+
+        $manager->persist($admin);
+        $manager->flush();
+
+       return $this->render('admin/home.html.twig');
+
+    }
+    
+ 
 
     
     /**
@@ -81,7 +84,7 @@ class AdminController extends AbstractController
 
         $validity = true;
 
-        $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+        $admin = $this->getDoctrine()->getRepository(Admin::class)->find(3);
 
 
         if( isset($_POST["username"])){

@@ -85,7 +85,6 @@
    #eventNavBar{
 
       background: white;
-
       margin: auto;
       height: 30px;
       width:100%; 
@@ -128,39 +127,17 @@
 
    }
 
-   #myContainer{
-
-
-     position : relative;
-
-     width : 90vw;
-
-     height : 90vh;
-
-     	display: grid;
-
-     grid-auto-columns: minmax(100px, auto);
-
-     margin-left :5%;
-
-    }
-
 
     .imgDiv{
 
        margin-top: 20px;
-       margin-left: 10px;
-      position: relative;
-      
-      flex-grow: 1;
-      
-
-      display :flex;
-
-      z-index: 1;
-     
-
-      justify-content: center;
+       position: relative;
+       flex-grow: 1;
+       display :flex;
+       z-index: 1;
+       justify-content: space-between;
+       align-items: flex-start;
+       width:100%;
 
 
     }
@@ -168,18 +145,13 @@
 
     img{
 
-    z-index: 1;
-
-    width : 500px;
-
-    object-fit:contain;
-
-    border-radius: 8px;
-
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
-
-
-
+      z-index: 1;
+      width : 500px;
+      object-fit:contain;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      height:auto;
     }
 
 
@@ -191,46 +163,29 @@
 
     .closeButton{
        
-
        margin-left: -30%;
-       
-
        background: none;
-
        border: none;
-
        outline: none;
-
        width: 15px;
-
        border-radius: 30px;
-
        font-size: 13px;
-
        
     }
 
     #cartBtn{
 
-       height : 14px;
-
-       width : 14px;
-
-       border-radius: 10px;
-
+       height: 12.5%;
+       width: 7.5%;
+       border-radius: 5px;
        background: #0074D9;
-
        display: flex;
        align-items: center;
        justify-content: center; 
-
        color: white;
-
        border:none;
-
-       margin-left: 10px;
-
        font-size: 10px;
+       margin-right:2%;
 
     }
 
@@ -238,39 +193,166 @@
     #addedImgMsg{
 
        position:fixed;
-
        z-index: 8;
-
        top: 10vh;
-
        left: 80vw;
-
        background: yellow;
-
        width: 150px;
-
        height: 50px;
-
        opacity: 0;
     }
 
+ #myContainer {
+      position: relative;
+      width: 90vw;
+      height: 90vh;
+      display: flex;
+      margin-left: 5%;
+      align-items: flex-start;
+      justify-content: space-around;
+      flex-wrap: wrap;
+   }
 
+
+.imgText {
+    position: absolute;
+    top: 40%;
+    z-index: 6;
+    font-size: 5vw;
+    opacity: 40%;
+    left: 5%;
+    width: 92.5%;
+}
+
+#topMessage{
+
+   display:flex;
+}
+
+#topHref{
+   display: flex;
+   font-size: 13px;  
+   justify-content: space-between; 
+   align-items: center; 
+   width:120px;
+}
+
+
+#topP{
+   opacity:1;
+}
+
+
+#layoutButtons{
+
+   position:fixed;
+   left: 0.5%;
+   top: 7.5%;
+   height:3%;
+   width:70%;
+   display:flex;
+   flex-direction:row;
+   justify-content:flex-start;
+   align-items:center;
+   border-radius:5px;
+   z-index:11;
+   display:none;
+
+}
+
+
+.layoutButtonsA{
+
+   height: 90%;
+   width: 5%;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   margin-left:5%;
+}
+
+.layoutImg{
+   height:60%;
+   width:auto;
+   border-radius:0px;
+   cursor:pointer;
+
+
+}
+
+.imgDiv{
+
+   width:30%;
+}
+@media all and (max-width: 800px){
+
+
+   #messageIcon {
+     z-index: 3;
+     position: fixed;
+     top: 85vh;
+     left: 5.5vw;
+     background: #0049B7;
+     height: 12.5vh;
+     width: 22.5vw;
+     border-radius: 100px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
 
    .imgText{
 
-     position: absolute;
+      font-size:15vw;
+   }
+   
 
-     top: 40%;
 
-     margin-right: 80px;
+    #myContainer{
+     position:relative;
+     width:90vw;
+     height:90vh;
+     display:grid;
+     grid-auto-columns: minmax(100px, auto);
+     margin-left :5%;
+    }
 
-     z-index: 6;
+     #cartBtn{
 
-     font-size: 80px;
+       margin-right:0;
 
-     opacity: 40%;
+     }
+
+
+  #topMessage{
+
+   display:none;
+  }
+
+
+#topHref{
+   display:flex;
+   justify-content:flex-end;
+   margin-left:5%;
+
+}
+#topP{
+   opacity:0;
 }
 
+
+  #layoutButtons{
+   display:none;
+  }
+
+
+.imgDiv{
+
+   width:100%;
+}
+
+
+}
     
 </style>
 
@@ -289,11 +371,24 @@
 </div>
 
  
- <div id='eventNavBar'>
+   <div id='eventNavBar'>
+
    
       
    </div>
 
+   <div id='layoutButtons'>
+
+      <div class='layoutButtonsA'>
+                <img class='layoutImg' src= "{{ asset('assets/img/layout1.png') }}">
+
+      </div>
+      <div class='layoutButtonsA'>
+                <img  class='layoutImg' src= "{{ asset('assets/img/layout2.png') }}">
+
+      </div>
+  
+   </div>
 
 
    <div id ='myContainer'></div>
@@ -351,18 +446,21 @@ $(window).scroll(function(e){
 
 
   var isPositionFixed = ($el.css('position') == 'fixed');
+  
 
   if ($(this).scrollTop() > 55 && !isPositionFixed){ 
+
     $el.css({'position': 'fixed', 'top': '7.3vh', 'width':'100%'}); 
-
-      
-
-   $el.html("<p style='margin:auto; font-size: 11px'>sélectionnez toutes les photo que vous souhaitez en appuyant sur la croix bleue</p><a href='#top' style='font-size: 13px; display: flex; justify-content: space-between; align-items: center; width:120px'>revenir en haut<i class='fas fa-eject'></i></a>")
+    $el.html("<p id='topP' style='margin:auto; font-size: 11px'>sélectionnez toutes les photo que vous souhaitez en appuyant sur la croix bleue</p><a id='topHref' href='#top'><span id='topMessage'>revenir en haut</span><i class='fas fa-eject'></i></a>");
+    document.getElementById("layoutButtons").style.display = 'flex';
 
   }
+
   if ($(this).scrollTop() < 55 && isPositionFixed){
     $el.css({'position': 'static','background-color':'white', 'width': '100%'});
        $el.html("");
+       document.getElementById("layoutButtons").style.display = 'none';
+
   } 
 });
 
@@ -580,6 +678,37 @@ imgText.innerHTML = 'BelleImage </br>';
         xrq.send('imageId=' + imageId);
 
       }
+
+
+
+
+      function largeLayout(){
+
+         
+
+  
+
+
+         
+      }
+
+
+
+      function longLayout(){
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+
 
    </script>
 {% endblock %}

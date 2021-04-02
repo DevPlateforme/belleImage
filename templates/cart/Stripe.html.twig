@@ -7,10 +7,14 @@
 
 <style>
 
-/**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
+
+body{
+
+  background:#20699e;
+
+font-family: 'Lobster', cursive;
+}
+
 .StripeElement {
   box-sizing: border-box;
 
@@ -53,13 +57,18 @@
 
 form{
 
-  width: 35vw;
+  width: 40vw;
+
+  color:white;
+
+  margin-left:0;
+
 
 }
 
 #InsideFormDiv{
   
-  background: blue;
+  background: #17a2b8;
 
   display:flex;
 
@@ -72,6 +81,8 @@ form{
   height: 235px;
 
   width: 100%;
+
+  borderradius:5px;
 
 }
 
@@ -103,11 +114,42 @@ form{
 }
 
 
+#stripeLine{
 
+  position:absolute;
+
+  height: 20vh;
+
+  width: 60vw;
+
+  left:30vw;
+
+  top:12.55vh;
+
+  font-size: 3.5vw;
+
+  color:white;
+}
+
+@media all and (max-width: 800px){
+
+
+  form{
+
+   width: 90vw;
+   margin-left:5vw;
+
+  }
+
+
+}
 </style>
  
 <script src="https://js.stripe.com/v3/"></script>
 
+
+
+ <div id='stripeLine'>Secure Payment with Stripe </div>  
 
 <div id='backgroundDiv'>
 

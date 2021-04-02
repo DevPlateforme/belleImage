@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>{% block title %}Welcome!{% endblock %}</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
        
        
                 
@@ -16,12 +18,30 @@
     <style>
 
 
+    body{
+      font-family: 'Lobster', cursive;
+
+    }
+
+
    main{
 
      position: relative;
 
      top: 7.3vh;
 
+     height: 92.7vh;
+
+     width:100vw;
+
+
+   }
+
+
+   *{
+
+     margin:0;
+     padding:0;
 
    }
 
@@ -37,34 +57,18 @@
     #messageIcon{
 
        z-index: 3;
-
-       
        float:right;
-
        position: fixed;
-
        top: 80vh;
-
        left: 90vw;
-
-
-
-
-      background: #0049B7;
-
-     
-
-      height : 80px;
-
-      width: 80px;
-
-      border-radius: 70px;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
+       background: #0049B7;
+       height : 80px;
+       width: 80px;
+       border-radius: 100px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       cursor:pointer;
 
     }
 
@@ -327,6 +331,38 @@
 
 }
 
+
+@media all and (max-width: 800px){
+
+    #messageIcon {
+      z-index: 3;
+      float: none;   
+      left: 7.5vw;
+      height: 22.5vw;
+      width: 22.5vw;
+    }
+
+
+    #messageBox {
+      z-index: 3;
+      float: right;
+      position: fixed;
+      bottom: 4.5vh;
+      left: 5vw;
+      height: 70vh;
+   }
+
+
+
+   #navItem2{
+     padding-right: 6%;
+   }
+     
+
+}
+
+
+
         {% block stylesheets %}{% endblock %}
 
     </style>
@@ -387,7 +423,7 @@
 
     <div id ='messageBox'>
 
-      <div id='formTitle' style='padding-left: 40px'>
+      <div id='formTitle'>
         <h4 style='margin: auto;'>Messagerie</h4>
         <a  onclick='closeMessageBox()''><button id='closeBoxLogo'><i class="fas fa-times"></i></button></a>
      </div>
@@ -515,7 +551,7 @@ function openMessageBox(){
 
    messageBox.style.opacity = 1;
 
-   messageBox.style.zIndex = 7;
+   messageBox.style.zIndex = 10;
 
 
 }
