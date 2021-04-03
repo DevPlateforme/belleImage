@@ -24,7 +24,7 @@ class TicketController extends AbstractController
     {
         if(isset($_POST['ticketMessage'])){
 
-            $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+            $admin = $this->getDoctrine()->getRepository(Admin::class)->find(3);
 
             $pinCount = $admin->getPinCount();
             
@@ -65,7 +65,7 @@ class TicketController extends AbstractController
         
               //set message Pin to 0
 
-       $admin = $this->getDoctrine()->getRepository(Admin::class)->find(1);
+       $admin = $this->getDoctrine()->getRepository(Admin::class)->find(3);
         
        $admin->setPinCount(0);
 
