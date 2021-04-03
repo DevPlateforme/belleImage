@@ -20,6 +20,21 @@
       
     }
 
+        
+ #errorMsg {
+   position: absolute;
+    width: 90vw;
+    height: 10%;
+    bottom: 40vh;
+    left: 17.5vw;
+    font-size: 1.5vw;
+    margin-top:0;
+    z-index:6;
+
+  }
+
+
+
 
     #myForm{
 
@@ -42,11 +57,6 @@
        margin-top: 5%;
     }
 
-   #errorMsg {
-    margin-top: 10vh;
-    position: relative;
-    top: 5vh;
-   }
 
     #searchBtn{
 
@@ -75,8 +85,6 @@
 
 
 
-
-
 @media all and (max-width: 800px){
 
 
@@ -93,16 +101,9 @@
           
      }
 
-   #errorMsg {
-    position: relative;
-    width: 80vw;
-    height: 10%;
-    top: 1vh;
-    left: 1vw;
-    font-size: 3.5vw;
-    margin-top:0;
 
-  }
+
+
 
 
     #mainDiv{
@@ -113,6 +114,22 @@
 
 
     }
+
+     #errorMsg {
+
+         left: 5vw;
+
+         bottom: 21.5vh;
+
+         font-size: 3.5vw;
+
+
+
+     }
+
+
+
+
 
 
     #eventCode{
@@ -210,6 +227,8 @@
 <h1 style='margin-left: 5vw; color:white'>Bienvenue dans l'espace de gestion de BelleImage</h1>
 {%else%}
 
+ <span id='errorMsg' style ='color:rgb(255,0,0,0.7)'></span>
+
 <div id='mainDiv'  >
 <h1 id='mainHeader' style='color:white'>Trouvez votre évènement</h1>
 
@@ -224,7 +243,6 @@
 
   </form>
 
- <span id='errorMsg' style ='color:red'></span>
 
 </div>
 
